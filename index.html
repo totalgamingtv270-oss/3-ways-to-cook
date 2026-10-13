@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Ways To Cook - Global Halal & International Recipes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #2c3e50;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --light-text: #777777;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            padding: 3rem 1rem 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: var(--box-shadow);
+            outline: none;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text);
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 1.5rem 1rem;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .cat-btn {
+            background: #edf2f7;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .recipe-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .card-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            background-color: #ddd;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .tag {
+            align-self: flex-start;
+            background: #feebc8;
+            color: #742a2a;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .recipe-title {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+        }
+
+        .recipe-desc {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .btn-view {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-view:hover {
+            background: var(--primary-color);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--light-text);
+        }
+
+        .modal-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .ingredients-box {
+            background: #f7fafc;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .method-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0 10px 0;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        .m-btn {
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--light-text);
+            border-bottom: 3px solid transparent;
+        }
+
+        .m-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .method-content {
+            display: none;
+            padding: 10px 0;
+        }
+
+        .method-content.active {
+            display: block;
+        }
+
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .recipes-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>3 Ways To Cook</h1>
+        <p>Explore Authentic Pakistani, Halal Chinese, Japanese, Indian, Korean & Russian Recipes</p>
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search recipes or ingredients..." onkeyup="filterRecipes()">
+        </div>
+    </header>
+
+    <div class="category-nav">
+        <button class="cat-btn active" onclick="filterCategory('all')"><i class="fas fa-globe"></i> All Cuisines</button>
+        <button class="cat-btn" onclick="filterCategory('pakistani')"><i class="fas fa-utensils"></i> Pakistani</button>
+        <button class="cat-btn" onclick="filterCategory('chinese')"><i class="fas fa-bowl-rice"></i> Chinese (Halal)</button>
+        <button class="cat-btn" onclick="filterCategory('japanese')"><i class="fas fa-fish"></i> Japanese (Halal)</button>
+        <button class="cat-btn" onclick="filterCategory('indian')"><i class="fas fa-pepper-hot"></i> Indian</button>
+        <button class="cat-btn" onclick="filterCategory('korean')"><i class="fas fa-drumstick-bite"></i> Korean (Halal)</button>
+        <button class="cat-btn" onclick="filterCategory('russian')"><i class="fas fa-stroopwafel"></i> Russian</button>
+    </div>
+
+    <div class="container">
+        <div class="recipes-grid" id="recipesGrid">
+            <!-- Recipes dynamically inserted via JavaScript -->
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="recipeModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 3 Ways To Cook. All Rights Reserved. Delicious Halal Recipes Worldwide.</p>
+    </footer>
+
+    <script>
+        const recipes = [
+            // Pakistani
+            {
+                id: 1,
+                title: "Pakistani Beef Biryani",
+                category: "pakistani",
+                desc: "A rich, aromatic rice dish packed with tender beef chunks, potatoes, and traditional spices.",
+                img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500",
+                ingredients: ["1kg Beef with bones", "1kg Basmati Rice", "4 Onions (sliced)", "1 cup Yogurt", "Biryani Spices, Garlic & Ginger paste"],
+                method1: "Traditional Dum Method: Slow-cook meat in gravy, layer cooked rice over curry, add saffron color, and seal pot for 20 minutes (Dum).",
+                method2: "Instant Pressure Cooker: Cook beef gravy in a pressure cooker (20 mins), layer with parboiled rice, and dum for 10 minutes.",
+                method3: "Healthier Low-Oil Method: Use extra-lean beef, skip fried onion garnishes, and substitute oil with olive oil spray."
+            },
+            {
+                id: 2,
+                title: "Chicken Karahi",
+                category: "pakistani",
+                desc: "Famous Pakistani wok-cooked chicken recipe rich in tomatoes, ginger, and green chilies.",
+                img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500",
+                ingredients: ["1kg Chicken", "1/2 cup Cooking Oil", "5 Tomatoes (halved)", "1 tbsp Ginger & Garlic paste", "Fresh Coriander and Julienned Ginger"],
+                method1: "Street Style Wok: Fry chicken in oil, cover with tomatoes until skin peels off, mash tomatoes and stir-fry over high heat until oil separates.",
+                method2: "Quick One-Pot: Simmer chicken with crushed tomatoes, garlic, ginger, and green chilies in a pot for 25 minutes.",
+                method3: "Skinless Air-Fryer Twist: Air-fry spiced chicken pieces first, then toss in a light fresh tomato sauce cooked separately."
+            },
+            // Chinese
+            {
+                id: 3,
+                title: "Halal Kung Pao Chicken",
+                category: "chinese",
+                desc: "Classic stir-fried chicken dish with peanuts, vegetables, and chili peppers in a savory sauce.",
+                img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500",
+                ingredients: ["500g Chicken breast (cubed)", "1/2 cup Peanuts", "Soy Sauce & Sesame Oil", "Bell peppers & Dried red chilies", "Cornstarch"],
+                method1: "Wok Stir-Fry: Fry peanuts, brown chicken in sesame oil, toss chilies, stir in soy-cornstarch sauce until glossy.",
+                method2: "Quick 15-Min Skillet: Sauté chicken cubes, pour pre-mixed Kung Pao sauce, throw roasted peanuts and green onions.",
+                method3: "Low-Sodium Healthy Version: Use tamari low-sodium soy sauce, air-fry chicken cubes without cornstarch batter."
+            },
+            {
+                id: 4,
+                title: "Beef Szechuan",
+                category: "chinese",
+                desc: "Spicy and flavorful Chinese beef stir-fry cooked with bell peppers and Szechuan sauce.",
+                img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500",
+                ingredients: ["400g Beef strips", "Bell peppers & Onions", "Szechuan pepper powder", "Soy sauce & Garlic", "Cornstarch"],
+                method1: "Traditional Wok Searing: Flash-sear beef strips over high heat, set aside, fry aromatics, and toss beef back in spicy sauce.",
+                method2: "Quick Pan Fry: Marinate beef in soy sauce, stir-fry veggies and beef in one skillet for 10 minutes.",
+                method3: "Boiled Tender Beef (Szechuan Style): Poach thin beef slices in boiling spiced broth for a softer texture without deep frying."
+            },
+            // Japanese
+            {
+                id: 5,
+                title: "Halal Beef Teriyaki",
+                category: "japanese",
+                desc: "Sweet and savory tender beef cuts glazed in classic sweet teriyaki sauce.",
+                img: "https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?w=500",
+                ingredients: ["500g Beef sirloin (sliced)", "Soy Sauce & Brown Sugar", "Ginger & Garlic", "Sesame seeds & Green onions"],
+                method1: "Pan Glazed: Sear steak strips on high heat, pour handmade soy-sugar glaze, and reduce until thick and shiny.",
+                method2: "Slow Cooker Teriyaki: Simmer beef strips in soy ginger sauce for 3 hours until melt-in-the-mouth tender.",
+                method3: "Grilled Teriyaki Skewers: Thread marinated beef on skewers, grill over medium flame, and baste lightly with glaze."
+            },
+            {
+                id: 6,
+                title: "Halal Chicken Ramen",
+                category: "japanese",
+                desc: "Comforting Japanese noodle soup served in rich chicken broth topped with boiled eggs and herbs.",
+                img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500",
+                ingredients: ["Ramen Noodles", "Chicken Broth", "Seared Chicken Breast", "Soft-boiled Egg", "Norisheet & Green onions"],
+                method1: "Traditional Slow Broth: Simmer chicken bones with ginger and scallions for 4 hours, assemble with noodles and toppings.",
+                method2: "Quick 20-Min Ramen: Use rich chicken stock, boil ramen noodles, top with pan-seared chicken slices and egg.",
+                method3: "Light Vegetable-Rich Broth: Use clear chicken stock, zoodles (zucchini noodles), poached egg, and fresh spinach."
+            },
+            // Indian
+            {
+                id: 7,
+                title: "Indian Butter Chicken",
+                category: "indian",
+                desc: "Tender chicken cooked in a silky, creamy tomato and butter gravy.",
+                img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500",
+                ingredients: ["800g Chicken thighs", "1/2 cup Cream & Butter", "Tomato Puree", "Garam Masala & Kasuri Methi", "Garlic & Ginger"],
+                method1: "Tandoori & Gravy Combo: Grill marinated chicken pieces first, then blend silky tomato sauce with cream and simmer chicken.",
+                method2: "One-Pot Creamy Skillet: Cook marinated chicken directly in pan, pour blended tomato sauce and butter, simmer for 15 mins.",
+                method3: "Light Yogurt Butter Chicken: Substitute heavy cream with Greek yogurt and use minimal butter."
+            },
+            // Korean
+            {
+                id: 8,
+                title: "Halal Korean Beef Bulgogi",
+                category: "korean",
+                desc: "Thinly sliced beef marinated in sweet soy sauce, pear puree, garlic, and sesame oil.",
+                img: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=500",
+                ingredients: ["500g Thin Beef slices", "Grated Pear or Apple", "Soy Sauce & Brown Sugar", "Garlic & Sesame Oil", "Green onions"],
+                method1: "Classic Cast Iron Skillet: Marinate beef for 2 hours, sear quickly on hot cast iron pan for caramelized edges.",
+                method2: "Quick Stir Fry: Fry marinated beef strips instantly with sliced onions and carrots in 8-10 minutes.",
+                method3: "Korean BBQ Grill: Grill marinated slices on an outdoor BBQ grill or indoor electric griddle."
+            },
+            // Russian
+            {
+                id: 9,
+                title: "Russian Olivier Salad",
+                category: "russian",
+                desc: "Famous traditional Russian potato salad with boiled chicken, eggs, peas, and pickles in a creamy dressing.",
+                img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500",
+                ingredients: ["Boiled Potatoes & Carrots", "Diced Cooked Chicken", "Boiled Eggs", "Green Peas & Dill Pickles", "Mayonnaise"],
+                method1: "Classic Chilled Method: Dice all boiled veggies, chicken, and pickles evenly into small cubes, fold with mayo, chill for 2 hours.",
+                method2: "Quick Mayo-Yogurt Mix: Mix Mayo with light Greek yogurt, fold in pre-boiled store-bought veg mix and shredded chicken.",
+                method3: "Low-Calorie Salad: Replace mayonnaise entirely with seasoned Greek yogurt and lemon juice."
+            }
+        ];
+
+        function displayRecipes(data) {
+            const grid = document.getElementById('recipesGrid');
+            grid.innerHTML = '';
+            
+            if(data.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; font-size:1.2rem;">No recipes found matching your criteria.</p>';
+                return;
+            }
+
+            data.forEach(r => {
+                grid.innerHTML += `
+                    <div class="recipe-card">
+                        <img src="${r.img}" class="card-img" alt="${r.title}">
+                        <div class="card-body">
+                            <span class="tag">${r.category}</span>
+                            <h3 class="recipe-title">${r.title}</h3>
+                            <p class="recipe-desc">${r.desc}</p>
+                            <button class="btn-view" onclick="openModal(${r.id})">
+                                <i class="fas fa-list"></i> View 3 Ways To Cook
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if(cat === 'all') {
+                displayRecipes(recipes);
+            } else {
+                const filtered = recipes.filter(r => r.category === cat);
+                displayRecipes(filtered);
+            }
+        }
+
+        function filterRecipes() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = recipes.filter(r => 
+                r.title.toLowerCase().includes(query) || 
+                r.desc.toLowerCase().includes(query) ||
+                r.category.toLowerCase().includes(query)
+            );
+            displayRecipes(filtered);
+        }
+
+        function openModal(id) {
+            const r = recipes.find(item => item.id === id);
+            const modalBody = document.getElementById('modalBody');
+            
+            modalBody.innerHTML = `
+                <div class="modal-header">
+                    <h2>${r.title}</h2>
+                    <span class="tag">${r.category} Cuisine</span>
+                </div>
+                <div class="ingredients-box">
+                    <h4><i class="fas fa-shopping-basket"></i> Key Ingredients:</h4>
+                    <p>${r.ingredients.join(', ')}</p>
+                </div>
+                <h3>3 Ways To Cook:</h3>
+                <div class="method-tabs">
+                    <button class="m-btn active" onclick="switchMethod(event, 'm1')">Method 1: Traditional</button>
+                    <button class="m-btn" onclick="switchMethod(event, 'm2')">Method 2: Quick/Express</button>
+                    <button class="m-btn" onclick="switchMethod(event, 'm3')">Method 3: Healthy/Air-Fryer</button>
+                </div>
+                <div id="m1" class="method-content active">
+                    <p>${r.method1}</p>
+                </div>
+                <div id="m2" class="method-content">
+                    <p>${r.method2}</p>
+                </div>
+                <div id="m3" class="method-content">
+                    <p>${r.method3}</p>
+                </div>
+            `;
+
+            document.getElementById('recipeModal').style.display = 'flex';
+        }
+
+        function switchMethod(evt, methodId) {
+            document.querySelectorAll('.m-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.method-content').forEach(c => c.classList.remove('active'));
+            evt.currentTarget.classList.add('active');
+            document.getElementById(methodId).classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('recipeModal').style.display = 'none';
+        }
+
+        // Initialize display
+        displayRecipes(recipes);
+    </script>
+</body>
+</html>
