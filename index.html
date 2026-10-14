@@ -32,7 +32,7 @@
             flex-direction: column;
         }
 
-        /* Header */
+        /* Top Header */
         header {
             background-color: var(--dark-color);
             color: white;
@@ -75,15 +75,15 @@
             border: none;
         }
 
-        /* Search Engine Bar */
+        /* Live Search Engine */
         .search-box {
             display: flex;
             align-items: center;
             background: white;
             border-radius: 25px;
             padding: 5px 15px;
-            width: 45%;
-            max-width: 450px;
+            width: 50%;
+            max-width: 500px;
         }
 
         .search-box input {
@@ -105,7 +105,7 @@
             flex: 1;
         }
 
-        /* Sidebar Styling */
+        /* Sidebar Navigation */
         aside {
             width: 280px;
             background: white;
@@ -119,16 +119,16 @@
         }
 
         aside ul li {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         aside ul li a {
             text-decoration: none;
             color: var(--dark-color);
-            font-size: 17px;
+            font-size: 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             padding: 10px;
             border-radius: 8px;
             transition: 0.2s;
@@ -139,14 +139,14 @@
             color: white;
         }
 
-        /* Main Content Area */
+        /* Main Content */
         main {
             flex: 1;
             padding: 25px;
             overflow-y: auto;
         }
 
-        /* Subscription Banner */
+        /* Subscribe Section Banner */
         .subscribe-banner {
             background: linear-gradient(135deg, #ff416c, #ff4b2b);
             color: white;
@@ -157,11 +157,6 @@
             align-items: center;
             margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(255, 65, 108, 0.3);
-        }
-
-        .subscribe-banner h2 {
-            font-size: 24px;
-            margin-bottom: 5px;
         }
 
         .sub-btn {
@@ -183,23 +178,23 @@
             color: black;
         }
 
-        /* Section Titles */
+        /* Section Headings */
         .section-title {
-            font-size: 26px;
+            font-size: 24px;
             color: var(--dark-color);
-            margin-top: 30px;
+            margin-top: 35px;
             margin-bottom: 20px;
             border-bottom: 3px solid var(--primary-color);
             display: inline-block;
             padding-bottom: 5px;
         }
 
-        /* Cards Grid */
+        /* Grid Cards Layout */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .card {
@@ -219,7 +214,7 @@
 
         .card img {
             width: 100%;
-            height: 170px;
+            height: 180px;
             object-fit: cover;
         }
 
@@ -231,31 +226,30 @@
         }
 
         .card-title {
-            font-size: 19px;
+            font-size: 18px;
             color: var(--dark-color);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: bold;
         }
 
         .card-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
-            margin-bottom: 12px;
-            line-height: 1.6;
+            margin-bottom: 10px;
+            line-height: 1.5;
             flex: 1;
         }
 
-        /* 3-Star Rating Option */
+        /* 3-Star Rating Feature */
         .star-rating {
             color: var(--accent-color);
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 12px;
         }
 
-        /* Buttons */
         .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn {
@@ -263,7 +257,7 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -272,17 +266,10 @@
             flex: 1;
         }
 
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
+        .btn-primary { background: var(--primary-color); color: white; }
+        .btn-video { background: #2a9d8f; color: white; }
 
-        .btn-video {
-            background: #2a9d8f;
-            color: white;
-        }
-
-        /* Blog Section */
+        /* Blog Section Styling */
         .blog-card {
             background: #fff;
             border-right: 4px solid var(--accent-color);
@@ -292,7 +279,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        /* Modal Popup */
+        /* Modal Popup for Details */
         .modal {
             display: none;
             position: fixed;
@@ -310,9 +297,9 @@
             background: white;
             padding: 25px;
             border-radius: 12px;
-            max-width: 600px;
+            max-width: 650px;
             width: 90%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
             position: relative;
         }
@@ -321,7 +308,7 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            font-size: 22px;
+            font-size: 24px;
             cursor: pointer;
             color: #888;
         }
@@ -335,7 +322,7 @@
         }
 
         @media (max-width: 768px) {
-            .search-box { width: 60%; }
+            .search-box { width: 50%; }
             .main-wrapper { flex-direction: column; }
             aside { width: 100%; }
             .subscribe-banner { flex-direction: column; text-align: center; gap: 15px; }
@@ -344,19 +331,16 @@
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header & Search Engine -->
     <header>
         <div class="logo-container">
             <button class="toggle-btn" id="toggleSidebar"><i class="fas fa-bars"></i></button>
             <a href="#" class="logo">
-                <i class="fas fa-utensils"></i>
-                New Chef (نیو شیف)
+                <i class="fas fa-utensils"></i> New Chef (نیو شیف)
             </a>
         </div>
-
-        <!-- Search Engine -->
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="کھانے، سبزیاں، دالیں یا مصالحے تلاش کریں...">
+            <input type="text" id="searchInput" placeholder="کوئی بھی ڈش یا سبزی تلاش کریں...">
             <i class="fas fa-search"></i>
         </div>
     </header>
@@ -369,10 +353,12 @@
                 <li><a href="#dal"><i class="fas fa-seedling"></i> دالوں کے پکوان</a></li>
                 <li><a href="#chicken"><i class="fas fa-drumstick-bite"></i> چکن کے پکوان</a></li>
                 <li><a href="#beef"><i class="fas fa-burger"></i> بیف کے پکوان</a></li>
-                <li><a href="#mutton"><i class="fas fa-meat"></i> مٹن کے پکوان</a></li>
-                <li><a href="#burgers"><i class="fas fa-hamburger"></i> برگر اور ساسز</a></li>
-                <li><a href="#spices"><i class="fas fa-mortar-pestle"></i> مصالحے اور اچار</a></li>
-                <li><a href="#drinks"><i class="fas fa-glass-water"></i> مشروبات اور چائے</a></li>
+                <li><a href="#mutton"><i class="fas fa-drumstick-bite"></i> مٹن کے پکوان</a></li>
+                <li><a href="#burgers"><i class="fas fa-hamburger"></i> برگرز اور فاسٹ فوڈ</a></li>
+                <li><a href="#sauces"><i class="fas fa-wine-bottle"></i> ساسز اور چٹنیاں</a></li>
+                <li><a href="#pickles"><i class="fas fa-jar"></i> اچار کی اقسام</a></li>
+                <li><a href="#drinks"><i class="fas fa-glass-water"></i> مشروبات و چائے</a></li>
+                <li><a href="#spices"><i class="fas fa-mortar-pestle"></i> تمام مصالحے</a></li>
                 <li><a href="#vegetables"><i class="fas fa-carrot"></i> تمام سبزیاں</a></li>
                 <li><a href="#fish"><i class="fas fa-fish"></i> مچھلی کے پکوان</a></li>
                 <li><a href="#chaat"><i class="fas fa-apple-whole"></i> فروٹ چاٹ و سلاد</a></li>
@@ -380,253 +366,24 @@
             </ul>
         </aside>
 
-        <!-- Main Content -->
-        <main>
-            <!-- YouTube Banner -->
+        <!-- Main Body -->
+        <main id="mainContainer">
+            <!-- Channel Banner -->
             <section class="subscribe-banner" id="subscribe">
                 <div>
                     <h2>یوٹیوب چینل "3 Ways To Cook" کو سبسکرائب کریں!</h2>
-                    <p>ہر ڈش کو 3 مختلف طریقوں سے پکانے کی جدید اور آسان ریسیپیز دیکھیں اور سیکھیں۔</p>
+                    <p>چیف عثمان کے ساتھ کھانوں کو 3 مختلف اور آسان طریقوں سے بنانے کی ریسیپیز۔</p>
                 </div>
                 <a href="https://youtube.com" target="_blank" class="sub-btn">
                     <i class="fab fa-youtube"></i> سبسکرائب کریں
                 </a>
             </section>
 
-            <!-- 1. Rice Dishes Section -->
-            <h2 class="section-title" id="rice">1. چاول کے پکوان (Rice Dishes)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="سندھی بریانی">
-                    <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600" alt="بریانی">
-                    <div class="card-body">
-                        <div class="card-title">سندھی بریانی</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">آلو اور الو بخارے والی مصالحے دار بریانی۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('سندھی بریانی', 'اجزاء: چکن 1 کلو، چاول 1 کلو، ٹماٹر، دہی، الو بخارے، بریانی مصالحہ۔\n\nطریقہ: کورمہ تیار کریں، چاول ابال کر تہیں لگائیں اور 15 منٹ دم دیں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('سندھی بریانی')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" data-title="یخنی پلاؤ">
-                    <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600" alt="پلاؤ">
-                    <div class="card-body">
-                        <div class="card-title">مٹن یخنی پلاؤ</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">گوشت کی زبردست یخنی میں پکائے گئے چاول۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('مٹن یخنی پلاؤ', 'اجزاء: مٹن 1 کلو، چاول 1 کلو، سونف، دھنیا، پیاز۔\n\nطریقہ: یخنی ابالیں۔ پیاز براؤن کر کے یخنی میں چاول پکا لیں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('مٹن یخنی پلاؤ')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" data-title="قابلی پلاؤ">
-                    <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600" alt="قابلی پلاؤ">
-                    <div class="card-body">
-                        <div class="card-title">قابلی پلاؤ</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">گاجر اور کشمش کی تہہ والا مخصوص پشاوری پلاؤ۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('قابلی پلاؤ', 'طریقہ: یخنی پلاؤ بنا کر اوپر فرائی کی ہوئی گاجر اور کشمش ڈال کر دم دیں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('قابلی پلاؤ')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Dal Dishes Section -->
-            <h2 class="section-title" id="dal">2. دالوں کے پکوان (Dal Dishes)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="دال ماش فرائی">
-                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600" alt="دال ماش">
-                    <div class="card-body">
-                        <div class="card-title">دال ماش فرائی</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">ہوٹل اسٹائل خشکی دال ماش۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('دال ماش فرائی', 'طریقہ: دال ماش ابالیں۔ مصالحہ بھون کر دال شامل کریں اور تڑکا لگائیں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('دال ماش فرائی')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" data-title="دال حلیم">
-                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600" alt="حلیم">
-                    <div class="card-body">
-                        <div class="card-title">بیف حلیم / دال حلیم</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">دالوں، گندم اور بیف کو گھوٹ کر تیار کردہ۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('بیف حلیم', 'طریقہ: دالیں اور گوشت گلا کر اچھی طرح گھوٹ لیں اور تلی پیاز کا تڑکا لگائیں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('بیف حلیم')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. Chicken Dishes Section -->
-            <h2 class="section-title" id="chicken">3. چکن کے پکوان (Chicken Dishes)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="لاہوری چکن کڑاہی">
-                    <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600" alt="کڑاہی">
-                    <div class="card-body">
-                        <div class="card-title">لاہوری چکن کڑاہی</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">ٹماٹر، ادرک اور کالی مرچ والی لاہوری کڑاہی۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('لاہوری چکن کڑاہی', 'طریقہ: چکن فرائی کریں، ٹماٹر ڈال کر گلائیں اور کالی مرچ چھڑک کر تیز آنچ پر بھونیں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('لاہوری چکن کڑاہی')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" data-title="چکن قورمہ">
-                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600" alt="قورمہ">
-                    <div class="card-body">
-                        <div class="card-title">روایتی چکن قورمہ</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">دہی اور تلی ہوئی پیاز کے ساتھ دانے دار سالن۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('چکن قورمہ', 'طریقہ: گوشت اور ادرک لہسن بھونیں، دہی اور پیسی پیاز ڈال کر 10 منٹ دم دیں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('چکن قورمہ')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. Beef Dishes Section -->
-            <h2 class="section-title" id="beef">4. بیف کے پکوان (Beef Dishes)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="پشاوری چپلی کباب">
-                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600" alt="چپلی کباب">
-                    <div class="card-body">
-                        <div class="card-title">پشاوری چپلی کباب</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">بیف کے قیمے، انار دانے اور ٹماٹر کے خستہ کباب۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('پشاوری چپلی کباب', 'طریقہ: قیمے میں انار دانہ، پیاز، ٹماٹر اور مصالحے ملا کر توے پر فرائی کریں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('پشاوری چپلی کباب')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" data-title="بیف نہاری">
-                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600" alt="نہاری">
-                    <div class="card-body">
-                        <div class="card-title">شاہی بیف نہاری</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">نلی کے گوشت اور آٹے کے ہلکے شوربے والی نہاری۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('بیف نہاری', 'طریقہ: گوشت کو نہاری مصالحے کے ساتھ گھنٹوں پکائیں اور آٹا گھول کر گاڑھا کریں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('بیف نہاری')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5. Fast Food & Sauces Section -->
-            <h2 class="section-title" id="burgers">5. برگر اور ساسز (Burgers & Sauces)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="انڈا شامی برگر">
-                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600" alt="انڈا شامی برگر">
-                    <div class="card-body">
-                        <div class="card-title">دیسی انڈا شامی برگر</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">شامی کباب، انڈا، بند گوبھی اور ساس والا روایتی برگر۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('دیسی انڈا شامی برگر', 'طریقہ: شامی فرائی کریں، بن سیکھ کر مایونیز، کباب اور انڈا رکھ کر بند کریں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('انڈا شامی برگر')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6. Vegetables Section -->
-            <h2 class="section-title" id="vegetables">6. تمام سبزیوں کے نام اور تصاویر</h2>
-            <div class="grid-container">
-                <div class="card" data-title="بھنڈی">
-                    <img src="https://images.unsplash.com/photo-1425543103986-22bad73d385a?w=600" alt="بھنڈی">
-                    <div class="card-body">
-                        <div class="card-title">بھنڈی (Ladyfinger)</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">بھنڈی فرائی کر کے پیاز اور مصالحوں کے ساتھ پکائیں۔</div>
-                    </div>
-                </div>
-
-                <div class="card" data-title="آلو">
-                    <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=600" alt="آلو">
-                    <div class="card-body">
-                        <div class="card-title">آلو (Potato)</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">تمام پاکستانی کھانوں اور فرائز کی بنیاد۔</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 7. Fish Section -->
-            <h2 class="section-title" id="fish">7. مچھلی کے پکوان (Fish)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="لاہوری فرائیڈ مچھلی">
-                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600" alt="مچھلی">
-                    <div class="card-body">
-                        <div class="card-title">لاہوری فرائیڈ مچھلی</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">اجوائن اور بیسن میں میرینیٹ شدہ سنہری مچھلی۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('لاہوری فرائیڈ مچھلی', 'طریقہ: مچھلی کو اجوائن، بیسن اور مصالحے لگا کر فرائی کریں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('لاہوری فرائیڈ مچھلی')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 8. Spices & Pickles -->
-            <h2 class="section-title" id="spices">8. مصالحے اور اچار (Spices & Pickles)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="آم کا اچار">
-                    <img src="https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=600" alt="اچار">
-                    <div class="card-body">
-                        <div class="card-title">روایتی آم کا اچار</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">کچی کیری، سرسوں کے تیل اور کلونجی کا اچار۔</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 9. Fruit Chaat & Salad Section -->
-            <h2 class="section-title" id="chaat">9. فروٹ چاٹ اور سلاد (Chaat & Salad)</h2>
-            <div class="grid-container">
-                <div class="card" data-title="رشین سلاد">
-                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600" alt="رشین سلاد">
-                    <div class="card-body">
-                        <div class="card-title">شادیوں والی رشین سلاد</div>
-                        <div class="star-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <div class="card-desc">آلو، پاستا، سیب اور کریمی مایونیز سلاد۔</div>
-                        <div class="btn-group">
-                            <button class="btn btn-primary" onclick="openModal('رشین سلاد', 'طریقہ: ابلے آلو، سیب اور پاستا کو کریم اور مایونیز میں مکس کریں۔')"><i class="fas fa-book-open"></i> ترکیب</button>
-                            <button class="btn btn-video" onclick="openVideo('رشین سلاد')"><i class="fas fa-video"></i> ویڈیو</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 10. Blog Section -->
-            <h2 class="section-title" id="blog">10. ککنگ بلاگ اور ٹپس (Cooking Blog)</h2>
-            <div class="blog-card">
-                <h3>1. گوشت کو جلد گلانے کی خاص ترکیب</h3>
-                <p>بیف یا مٹن پکاتے وقت چند قطرے لیموں کا رس یا کچا پپیتا ملائیں، گوشت جلدی گل جائے گا۔</p>
-            </div>
-            <div class="blog-card">
-                <h3>2. چاول کھلے کھلے بنانے کا طریقہ</h3>
-                <p>چاول ابالتے وقت پانی میں تھوڑا سا لیموں کا رس اور گھی شامل کریں۔</p>
-            </div>
-
+            <!-- Dynamic Content Categories Will Load Here -->
         </main>
     </div>
 
-    <!-- Modal Popup -->
+    <!-- Modal Popup for Detailed Recipes & Videos -->
     <div class="modal" id="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -635,27 +392,181 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 New Chef (نیو شیف) - تمام حقوق محفوظ ہیں۔</p>
     </footer>
 
-    <!-- JS Logic -->
+    <!-- Complete JavaScript Database -->
     <script>
-        // Sidebar Toggle
-        const toggleBtn = document.getElementById('toggleSidebar');
-        const sidebar = document.getElementById('sidebar');
+        // Database of All Sent Recipes
+        const recipeData = [
+            {
+                id: "rice",
+                categoryTitle: "1. چاول کے پکوان (Rice Dishes)",
+                items: [
+                    { title: "سندھی بریانی", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600", desc: "آلو اور الو بخارے والی تیز مصالحے دار دیسی بریانی۔", recipe: "اجزاء: چکن/مٹن 1 کلو، باسمتی چاول 1 کلو، ٹماٹر 4 عدد، تلی پیاز 3 عدد، دہی 1 پاؤ، آلو 3 عدد، الو بخارے 10 عدد، بریانی مصالحہ۔\n\nترکیب:\n1. پیاز فرائی کر کے ادرک لہسن اور گوشت بھونیں۔\n2. ٹماٹر، دہی، الو بخارے اور بریانی مصالحہ ڈال کر سالن (کورمہ) پکا لیں۔\n3. چاولوں کو ایک کنی ابال لیں۔\n4. پتیلی میں چاولوں اور کورمے کی تہیں لگا کر اوپر پودینہ اور تلی پیاز چھڑکیں اور 15 منٹ دم پر رکھیں۔" },
+                    { title: "ممبئی / حیدرآبادی بریانی", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600", desc: "مرغی یا گوشت کی تہوں والی شاہی بریانی۔", recipe: "اجزاء: گوشت 1 کلو، چاول 1 کلو، دہی 1 کپ، تلی پیاز، ادرک لہسن، گرم مصالحہ، کچی مرچیں۔\n\nترکیب:\n1. گوشت کو دہی اور تمام مصالحوں میں 2 گھنٹے میرینیٹ کریں۔\n2. پتیلی میں میرینیٹ شدہ گوشت رکھیں، اوپر آدھے ابلے چاول ڈالیں۔\n3. گھی اور زعفران کا پانی چھڑک کر دھیمی آنچ پر 40 منٹ دم دیں۔" },
+                    { title: "مٹن یخنی پلاؤ", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600", desc: "گوشت کی خوشبودار یخنی میں پکائے گئے چاول۔", recipe: "اجزاء: مٹن 1 کلو، چاول 1 کلو، سونف 2 چمچ، ثابت دھنیا 2 چمچ، پیاز، ثابت گرم مصالحہ۔\n\nترکیب:\n1. مٹن میں پانی، سونف، دھنیا، پیاز اور نمک ڈال کر یخنی ابال لیں۔\n2. الگ برتن میں پیاز سنہری کریں، ثابت گرم مصالحہ اور گوشت ڈال کر بھونیں۔\n3. یخنی کا پانی چھان کر ڈالیں، ابال آنے پر چاول شامل کر کے پانی خشک ہونے پر دم دیں۔" },
+                    { title: "مٹر پلاؤ / سبزی پلاؤ", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600", desc: "تازہ مٹر اور سبزیوں کا ہلکا اور لذیذ پلاؤ۔", recipe: "اجزاء: چاول 1 کلو، مٹر 2 کپ، پیاز، ٹماٹر، ادرک لہسن، زیرہ، گرم مصالحہ۔\n\nترکیب:\n1. تیل میں پیاز اور زیرہ براؤن کریں۔\n2. ٹماٹر، ادرک لہسن اور مٹر ڈال کر اچھی طرح بھونیں۔\n3. حسبِ ضرورت پانی ڈالیں اور چاول شامل کر کے دم پر پکائیں۔" },
+                    { title: "قابلی پلاؤ", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600", desc: "گاجر اور کشمش کی تہہ والا روایتی پشاوری پلاؤ۔", recipe: "اجزاء: بیف/مٹن 1 کلو، چاول 1 کلو، گاجر باریک کٹی 2 عدد، کشمش آدھا کپ، چینی 2 چمچ۔\n\nترکیب:\n1. گوشت کا سادہ یخنی پلاؤ تیار کریں۔\n2. الگ پین میں تھوڑے سے تیل میں گاجر، کشمش اور چینی ڈال کر ہلکا فرائی کریں۔\n3. دم دیتے وقت چاولوں کے اوپر یہ کیریملائزڈ گاجر اور کشمش پھیلا کر 15 منٹ دم دیں۔" },
+                    { title: "متنجن / زردہ", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600", desc: "شادیوں والا رنگ برنگا میٹھا زردہ۔", recipe: "اجزاء: سیلا چاول 1 کلو، چینی 800 گرام، زرد رنگ، فوڈ کلرز، کھویا، ڈرائی فروٹس۔\n\nترکیب:\n1. چاولوں کو زرد رنگ ڈال کر پورا ابال لیں۔\n2. گھی میں الائچی کا تڑکا لگائیں، چینی اور آدھا کپ پانی ڈال کر شیرہ بنائیں۔\n3. چاول شامل کریں، پانی خشک ہونے پر مختلف فوڈ کلرز، کھویا اور ڈرائی فروٹس ڈال کر دم دیں۔" },
+                    { title: "دال چاول", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "پاکستان کا سب سے مقبول کمفرٹ فوڈ۔", recipe: "اجزاء: مونگ مسور دال 1 کپ، ابلے چاول 1 کلو، ہلدی، نمک، تڑکے کے لیے لہسن اور زیرہ۔\n\nترکیب:\n1. دال میں پانی، ہلدی اور نمک ڈال کر گلنے تک پکائیں۔\n2. دال گل جائے تو چمچ سے گھوٹ لیں اور گھی میں لہسن، زیرہ اور ثابت لال مرچ کا تڑکا لگائیں۔\n3. ابلے چاولوں پر دال ڈال کر اچار کے ساتھ سرو کریں۔" },
+                    { title: "قیمہ پلاؤ / مغز پلاؤ", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=600", desc: "قیمے اور مصالحوں کے ساتھ تیار چاول۔", recipe: "اجزاء: بیف قیمہ آدھا کلو، چاول 1 کلو، پیاز، ٹماٹر، ادرک لہسن، گرم مصالحہ۔\n\nترکیب:\n1. پیاز سنہری کر کے قیمہ اور مصالحے ڈال کر بھونیں۔\n2. پانی شامل کریں اور ابال آنے پر چاول ڈال کر دم دیں۔" },
+                    { title: "آلو والے چاول (آلو پلاؤ)", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600", desc: "کم مصالحوں کے ساتھ جلدی بننے والے چاول۔", recipe: "اجزاء: آلو 3 عدد کٹے ہوئے، چاول 1 کلو، پیاز، ٹماٹر، زیرہ، کٹی لال مرچ۔\n\nترکیب:\n1. پیاز اور زیرہ براؤن کر کے ٹماٹر اور آلو بھونیں۔\n2. پانی اور نمک ڈال کر چاول شامل کریں اور دم لگا دیں۔" },
+                    { title: "چنے والے چاول (چنا پلاؤ)", img: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600", desc: "ابلے چنوں کے ساتھ چٹ پٹا پلاؤ۔", recipe: "اجزاء: ابلے سفید چنے 2 کپ، چاول 1 کلو، پیاز، ٹماٹر، املی کا گودا، بریانی مصالحہ۔\n\nترکیب:\n1. پیاز براؤن کریں، ٹماٹر، مصالحہ اور ابلے چنے ڈال کر بھونیں۔\n2. املی کا پانی اور سادہ پانی ڈال کر چاول شامل کریں اور دم دیں۔" }
+                ]
+            },
+            {
+                id: "dal",
+                categoryTitle: "2. دالوں کے پکوان (Dal Dishes)",
+                items: [
+                    { title: "دال ماش فرائی", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "ہوٹل اور ڈھابہ اسٹائل فرائی دال ماش۔", recipe: "اجزاء: دال ماش 2 کپ ابلی ہوئی، پیاز 2 عدد، ٹماٹر 2 عدد، ادرک لہسن، ہری مرچ، گھی۔\n\nترکیب:\n1. دال ماش کو الگ ابال لیں۔\n2. گھی میں پیاز فرائی کریں، ادرک لہسن اور ٹماٹر ڈال کر مصالحہ بھونیں۔\n3. ابلی دال شامل کریں، کالی مرچ اور ہرا دھنیا چھڑک کر 5 منٹ دم دیں۔" },
+                    { title: "دال چنا تڑکا", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "ڈھابہ اسٹائل دال چنا تڑکے کے ساتھ۔", recipe: "اجزاء: دال چنا 2 کپ، پیاز، ٹماٹر، ادرک، سرخ مرچ، گرم مصالحہ۔\n\nترکیب:\n1. دال چنا ابال کر گلا لیں۔\n2. پیاز ٹماٹر کا مصالحہ بنا کر دال میں مکس کریں اور آخر میں دیسی گھی، لہسن اور زیرے کا تڑکا لگائیں۔" },
+                    { title: "دال مسور (سرخ دال)", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "روزمرہ بننے والی جلدی اور لذیذ دال۔", recipe: "اجزاء: مسور دال 1 کپ، ہلدی، نمک، لہسن، زیرہ، ثابت لال مرچ۔\n\nترکیب:\n1. دال میں پانی اور ہلدی ڈال کر گلا لیں۔\n2. کڑاہی میں گھی گرم کر کے لہسن، زیرہ اور لال مرچ کا تڑکا لگائیں۔" },
+                    { title: "دال مونگ", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "ہلکی پھلکی اور ہاضم دال۔", recipe: "اجزاء: مونگ دال 1 کپ، ہری مرچ، ادرک، زیرہ، گھی۔\n\nترکیب:\n1. دال کو نمک اور ہلدی کے ساتھ پکائیں۔\n2. گل جانے پر ادرک اور زیرے کا ہلکا تڑکا لگائیں۔" },
+                    { title: "مکس دال (پنج رتنی)", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "پانچ دالوں کے امتزاج سے بننے والی گاڑھی دال۔", recipe: "اجزاء: چنا، ماش، مونگ، مسور اور ارہر دال مکس 2 کپ۔\n\nترکیب:\n1. تمام دالوں کو ملا کر گلا لیں۔\n2. پیاز، ٹماٹر، ادرک، لہسن اور قصوری میتھی کا تڑکا لگا کر دم دیں۔" },
+                    { title: "شاہی حلیم (دال حلیم)", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "دالوں اور بیف سے تیار شاہی حلیم۔", recipe: "اجزاء: تمام دالیں اور گندم 2 کپ، بیف 1 کلو، حلیم مصالحہ۔\n\nترکیب:\n1. گوشت کا کورمہ بنائیں۔ دالوں اور گندم کو ابال لیں۔\n2. دونوں کو ملا کر گھوٹنے سے اچھی طرح گھوٹیں یہاں تک کہ ریشہ بن جائے۔ تلی پیاز سے سجا کر پیش کریں۔" },
+                    { title: "دال والے سموسے اور کچوری", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600", desc: "شام کی چائے کے لیے خستہ کچوریاں۔", recipe: "اجزاء: میدہ 2 کپ، ابلی پسی دال مونگ 1 کپ، مصالحے۔\n\nترکیب:\n1. میدے کا پیڑا بنا کر اس میں مصالحے دار پسی دال بھریں۔\n2. ہلکی آنچ پر گہرے تیل میں فرائی کریں۔" },
+                    { title: "دال کے دہی بڑے / بھلے", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600", desc: "دال ماش سے بنے نرم دہی بڑے۔", recipe: "اجزاء: دال ماش کا پیسٹ 1 کپ، دہی 2 کپ، املی کی چٹنی، چاٹ مصالحہ۔\n\nترکیب:\n1. دال کے پیسٹ کے بڑے بنا کر فرائی کریں، نیم گرم پانی میں بھگوئیں۔\n2. پانی نچوڑ کر میٹھے دہی اور چٹنی کے ساتھ سرو کریں۔" }
+                ]
+            },
+            {
+                id: "chicken",
+                categoryTitle: "3. چکن کے پکوان (Chicken Dishes)",
+                items: [
+                    { title: "لاہوری چکن کڑاہی", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600", desc: "ٹماٹر اور کالی مرچ والی لاہوری کڑاہی۔", recipe: "اجزاء: چکن 1 کلو، ٹماٹر 6 عدد، ادرک، ہری مرچ، کالی مرچ 1 چمچ، گھی۔\n\nترکیب:\n1. چکن کو تیل میں سفید ہونے تک فرائی کریں۔\n2. کٹے ٹماٹر ڈال کر ڈھک دیں، چھلکے اتار کر بھونیں۔\n3. کالی مرچ، ادرک اور ہری مرچ ڈال کر تیز آنچ پر بھونیں۔" },
+                    { title: "روایتی چکن قورمہ", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600", desc: "دہی اور تلی پیاز کا دانے دار شاہی قورمہ۔", recipe: "اجزاء: چکن 1 کلو، دہی 1 کپ، تلی پیاز 3 عدد، ادرک لہسن، گرم مصالحہ، کیوڑا۔\n\nترکیب:\n1. گھی میں الائچی، چکن اور ادرک لہسن بھونیں۔\n2. دہی اور تلی پیاز پیس کر ڈالیں۔\n3. مصالحہ بھون کر دھیمی آنچ پر 10 منٹ دم دیں۔" },
+                    { title: "چکن مکھنی ہنڈی", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600", desc: "مٹی کی ہنڈی میں مکھن اور کریم کا سالن۔", recipe: "اجزاء: بون لیس چکن 1 کلو، مکھن 50 گرام، فریش کریم 1 کپ، دہی، سفید مرچ۔\n\nترکیب:\n1. چکن کو لہسن دہی میں بھونیں۔\n2. کالی/سفید مرچ اور مکھن ڈال کر مکس کریں۔\n3. آخر میں فریش کریم ڈال کر 5 منٹ دم دیں۔" },
+                    { title: "گھر کا چکن شوربہ", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600", desc: "روزمرہ کا ہلکا اور خوشبودار شوربہ۔", recipe: "اجزاء: چکن 1 کلو، پیاز، ٹماٹر، ادرک لہسن، ہلدی، لال مرچ، دھنیا پاؤڈر۔\n\nترکیب:\n1. پیاز ٹماٹر بھون کر چکن ڈالیں۔\n2. اچھی طرح بھوننے کے بعد حسبِ ضرورت پانی ڈال کر شوربہ پکائیں۔" },
+                    { title: "چکن تکہ و ملائی بوٹی", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600", desc: "کوئلے پر سیکھی ہوئی رسیلی ملائی بوٹی۔", recipe: "اجزاء: چکن بوٹی 1 کلو، کریم 4 چمچ، دہی 4 چمچ، ہری مرچ پیسٹ، سفید مرچ۔\n\nترکیب:\n1. تمام اجزاء مکس کر کے چکن کو 4 گھنٹے میرینیٹ کریں۔\n2. سیخوں پر لگا کر کوئلوں پر سیکھیں۔" },
+                    { title: "چکن سیخ کباب", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600", desc: "قیمے کے رسیلے سیخ کباب۔", recipe: "اجزاء: چکن قیمہ 1 کلو، پیاز نچوڑی ہوئی، کباب مصالحہ، مکھن 2 چمچ۔\n\nترکیب:\n1. قیمے میں مصالحے اور مکھن ملا کر گوندھ لیں۔\n2. سیخوں پر لگا کر کوئلوں یا توے پر سیکھ لیں۔" }
+                ]
+            },
+            {
+                id: "beef",
+                categoryTitle: "4. بیف کے پکوان (Beef Dishes)",
+                items: [
+                    { title: "پشاوری چپلی کباب", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600", desc: "بیف قیمے اور انار دانے کے خستہ کباب۔", recipe: "اجزاء: بیف قیمہ (چربی سمیت) 1 کلو، پیاز 2 عدد، ٹماٹر 1 عدد، انار دانہ 2 چمچ، مکئی کا آٹا 3 چمچ، انڈا 1 عدد۔\n\nترکیب:\n1. قیمے میں تمام مصالحے، انار دانہ، کٹی پیاز اور انڈا مکس کریں۔\n2. بڑے چپٹے کباب بنا کر توے پر گھی میں فرائی کریں۔" },
+                    { title: "شاہی بیف نہاری", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "نلی والے گوشت کی گاڑھی نہاری۔", recipe: "اجزاء: بیف نلی والا گوشت 1 کلو، نہاری مصالحہ 1 پیکٹ، آٹا 4 چمچ، گھی 1 کپ۔\n\nترکیب:\n1. گھی میں ادرک لہسن اور نہاری مصالحہ ڈال کر گوشت بھونیں۔\n2. پانی ڈال کر 3 گھنٹے ہلکی آنچ پر پکائیں۔\n3. گوشت گل جائے تو آٹا پانی میں گھول کر ڈالیں اور گاڑھا ہونے پر تڑکا لگائیں۔" },
+                    { title: "بیف کڑاہی شنواری", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600", desc: "صرف ٹماٹر اور نمک والی شنواری کڑاہی۔", recipe: "اجزاء: بیف 1 کلو، ٹماٹر 6 عدد، نمک، کالی مرچ، ادرک، دنبے کی چربی یا تیل۔\n\nترکیب:\n1. بیف کو پہلے سے ابال کر گلا لیں۔\n2. کڑاہی میں تیل اور ٹماٹر ڈال کر بیف کو تیز آنچ پر بھونیں۔" },
+                    { title: "بیف پائے", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600", desc: "صبح کے ناشتے کا لذیذ اور طاقتور شوربہ۔", recipe: "اجزاء: گائے کے پائے 2 عدد، پیاز، ادرک لہسن، ہلدی، گرم مصالحہ۔\n\nترکیب:\n1. پائے اچھی طرح دھو کر پیاز، ادرک لہسن اور پانی کے ساتھ ہلکی آنچ پر رات بھر یا 5 گھنٹے ابالیں۔\n2. لال مرچ اور گرم مصالحے کا تڑکا لگا کر دم دیں۔" }
+                ]
+            },
+            {
+                id: "mutton",
+                categoryTitle: "5. مٹن کے پکوان (Mutton Dishes)",
+                items: [
+                    { title: "مٹن قورمہ", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600", desc: "دعوتوں والا روایتی مٹن قورمہ۔", recipe: "اجزاء: مٹن 1 کلو، دہی 1 پیالی، تلی پیاز، جائفل جوتری، الائچی، گھی۔\n\nترکیب:\n1. گھی میں الائچی اور مٹن بھونیں۔\n2. پانی ڈال کر گوشت گلا لیں۔\n3. دہی اور تلی پیاز کا پیسٹ ڈال کر بھونیں اور جائفل جوتری کا پاؤڈر چھڑک کر دم دیں۔" },
+                    { title: "مٹن دم پخت / روش", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600", desc: "بغیر پانی اور مرچ کے اپنے ہی پانی میں پکا مٹن۔", recipe: "اجزاء: مٹن بڑا گوشت 1 کلو، چربی 200 گرام، آلو 3 عدد، ثابت لہسن، نمک۔\n\nترکیب:\n1. دیگچی میں نیچے چربی پھر گوشت، آلو، لہسن اور نمک رکھیں۔\n2. ڈھکن کو آٹے سے سیل کر کے 3 گھنٹے بالکل دھیمی آنچ پر دم دیں۔" }
+                ]
+            },
+            {
+                id: "burgers",
+                categoryTitle: "6. برگرز اور فاسٹ فوڈ (Burgers & Fast Food)",
+                items: [
+                    { title: "دیسی انڈا شامی برگر", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600", desc: "اسٹریٹ اسٹائل انڈا شامی برگر۔", recipe: "اجزاء: برگر بن، شامی کباب 2 عدد، انڈے 2 عدد، بند گوبھی، مایونیز، کیچپ۔\n\nترکیب:\n1. شامی کباب فرائی کریں اور انڈے کا آملیٹ بنائیں۔\n2. بن سیکھ کر مایونیز، شامی کباب، بند گوبھی اور انڈا رکھ کر بند کریں۔" },
+                    { title: "کرسپی زنگر برگر", img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600", desc: "کے ایف سی اسٹائل کرسپی زنگر۔", recipe: "اجزاء: چکن تھائی پیس، میدہ، برف کا پانی، زنگر مصالحہ، مایونیز، لیٹش۔\n\nترکیب:\n1. چکن کو مصالحے میں میرینیٹ کریں۔\n2. میدے اور برف کے پانی کی ڈبل کوٹنگ کر کے کرسپی فرائی کریں۔ برگر میں مایونیز کے ساتھ سیٹ کریں۔" }
+                ]
+            },
+            {
+                id: "sauces",
+                categoryTitle: "7. ساسز اور چٹنیاں (Sauces & Dips)",
+                items: [
+                    { title: "املی کی کھٹی میٹھی چٹنی", img: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=600", desc: "سموسوں اور چاٹ کی جان۔", recipe: "اجزاء: املی کا گودا 1 کپ، گڑ 100 گرام، کالا نمک، زیرہ، کٹی لال مرچ۔\n\nترکیب:\nاملی کے گودے میں گڑ اور تمام مصالحے ڈال کر 15 منٹ پکائیں یہاں تک کہ گاڑھی ہو جائے۔" },
+                    { title: "پودینہ و دھنیا ہری چٹنی", img: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=600", desc: "تروتازہ ہضم کرنے والی چٹنی۔", recipe: "اجزاء: پودینہ 1 گڈی، دھنیا 1 گڈی، ہری مرچ 4 عدد، لیموں کا رس، نمک۔\n\nترکیب:\nتمام اجزاء کو بلینڈر میں تھوڑے سے پانی کے ساتھ باریک پیس لیں۔" },
+                    { title: "بروسٹ گارلک مائیو ساس", img: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=600", desc: "شوارما اور بروسٹ کے لیے گارلک ساس۔", recipe: "اجزاء: مایونیز 1 کپ، لہسن جوے 4 عدد (پیسے ہوئے)، کالی مرچ، لیموں۔\n\nترکیب:\nمایونیز میں پسا لہسن، کالی مرچ اور لیموں ملا کر اچھی طرح پھینٹ لیں۔" }
+                ]
+            },
+            {
+                id: "pickles",
+                categoryTitle: "8. اچار کی اقسام (Pickles)",
+                items: [
+                    { title: "روایتی آم کا اچار", img: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=600", desc: "سرسوں کے تیل کا دیسی آم کا اچار۔", recipe: "اجزاء: کچی کیری 1 کلو، میتھی دانہ، سونف، کلونجی، رائی، سرسوں کا تیل، نمک، ہلدی۔\n\nترکیب:\nکیری کے ٹکڑوں پر مصالحے اور ہلدی لگا کر 2 دن رکھیں، پھر سرسوں کے تیل میں ڈبو کر مرتبان میں محفوظ کریں۔" },
+                    { title: "مکس سبزی کا اچار", img: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?w=600", desc: "گاجر، شلجم اور گوبھی کا سردیوں والا اچار۔", recipe: "اجزاء: گاجر، گوبھی، ہری مرچیں، رائی، سرسوں کا تیل، سرکہ۔\n\nترکیب:\nسبزیوں کو ہلکا ابال کر سکھائیں، مصالحے اور سرسوں کا تیل ملا کر اچار ڈالیں۔" }
+                ]
+            },
+            {
+                id: "drinks",
+                categoryTitle: "9. مشروبات اور چائے (Drinks & Tea)",
+                items: [
+                    { title: "دیسی مٹھا و نمکین لسی", img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600", desc: "گرمیوں کی خاص سردائی و لسی۔", recipe: "اجزاء: دہی 2 کپ، دودھ 1 کپ، چینی یا نمک و زیرہ۔\n\nترکیب:\nمدھانی یا بلینڈر میں دہی، دودھ اور برف ڈال کر اچھی طرح بلینڈ کریں۔" },
+                    { title: "کشمیری گلابی چائے (Pink Tea)", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600", desc: "شادیوں والی شاہی پنک ٹی۔", recipe: "اجزاء: کشمیری چائے پتی 2 چمچ، بادیان، الائچی، میٹھا سوڈا، دودھ، بادام پستہ۔\n\nترکیب:\nپتی اور سوڈے کو برف کے پانی کے ساتھ پھینٹ کر سرخ قہوہ بنائیں، پھر دودھ ملا کر پنک رنگ لائیں۔" },
+                    { title: "پشاوری قہوہ", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600", desc: "ہاضمے کے لیے پشاوری سبز چائے۔", recipe: "اجزاء: سبز چائے پتی، الائچی، گؤزبان، گڑ یا لیموں۔\n\nترکیب:\nپانی میں الائچی اور پتی ابال کر 5 منٹ دم دیں اور لیموں نچوڑ کر سرو کریں۔" }
+                ]
+            },
+            {
+                id: "spices",
+                categoryTitle: "10. تمام مصالحے (Spices)",
+                items: [
+                    { title: "خالص گھر کا گرم مصالحہ", img: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=600", desc: "خوشبودار پسا ہوا گرم مصالحہ۔", recipe: "اجزاء: زیرہ 50 گرام، کالی مرچ 25 گرام، دار چینی، الائچی، لونگ، جائفل جوتری۔\n\nترکیب:\nتمام مصالحوں کو توے پر ہلکا سا گرم کر کے باریک گرائنڈ کر لیں۔" }
+                ]
+            },
+            {
+                id: "vegetables",
+                categoryTitle: "11. سبزیوں کے پکوان (Vegetables)",
+                items: [
+                    { title: "بھنڈی مسالہ", img: "https://images.unsplash.com/photo-1425543103986-22bad73d385a?w=600", desc: "پیاز اور ٹماٹر والی چٹ پٹی بھنڈی۔", recipe: "اجزاء: بھنڈی آدھا کلو، پیاز 2 عدد، ٹماٹر 2 عدد، ہلدی، لال مرچ، امچور پاؤڈر۔\n\nترکیب:\n1. بھنڈی فرائی کر کے لیس ختم کریں۔\n2. پیاز ٹماٹر کا مصالحہ بھون کر بھنڈی شامل کریں اور 5 منٹ دم دیں۔" },
+                    { title: "سرخ ساگ و مکئی روٹی", img: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=600", desc: "پنجاب کی سردیوں کی سوغات۔", recipe: "اجزاء: سرسوں کا ساگ 1 کلو، پالک، مکھن، لہسن کا تڑکا۔\n\nترکیب:\nساگ اور پالک ابال کر گھوٹ لیں اور دیسی گھی و لہسن کا تڑکا لگائیں۔" }
+                ]
+            },
+            {
+                id: "fish",
+                categoryTitle: "12. مچھلی کے پکوان (Fish Dishes)",
+                items: [
+                    { title: "لاہوری فرائیڈ مچھلی", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600", desc: "بیسن اور اجوائن والی کرسپی مچھلی۔", recipe: "اجزاء: مچھلی 1 کلو، اجوائن 1 چمچ، بیسن 4 چمچ، لیموں رس، مصالحے۔\n\nترکیب:\n1. مچھلی کو اجوائن نمک لگا کر دھوئیں۔\n2. بیسن اور مصالحوں کا پیسٹ لگا کر کرسپی فرائی کریں۔" }
+                ]
+            },
+            {
+                id: "chaat",
+                categoryTitle: "13. فروٹ چاٹ و سلاد (Chaat & Salad)",
+                items: [
+                    { title: "شادیوں والی کریم فروٹ چاٹ", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600", desc: "کریمی اور میٹھی فروٹ چاٹ۔", recipe: "اجزاء: مکس پھل، فریش کریم 1 پیکٹ، پسی چینی 3 چمچ، بادام پستہ۔\n\nترکیب:\nکریم اور چینی پھینٹ کر پھلوں پر ڈالیں اور ڈرائی فروٹس سے سجائیں۔" },
+                    { title: "شادیوں والی رشین سلاد", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600", desc: "آلو، میکرونی اور مایونیز سلاد۔", recipe: "اجزاء: ابلے آلو، مٹر، پاستا، سیب، کریم، مایونیز، کالی مرچ۔\n\nترکیب:\nتمام چیزیں کریم اور مایونیز کے آمیزے میں مکس کر کے ٹھنڈی سرو کریں۔" }
+                ]
+            }
+        ];
 
-        toggleBtn.addEventListener('click', () => {
-            sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
-        });
+        // Render All Categories and Items Automatically
+        const mainContainer = document.getElementById('mainContainer');
 
-        // Search Engine
+        function renderAllRecipes() {
+            let htmlContent = '';
+            recipeData.forEach(cat => {
+                htmlContent += `<h2 class="section-title" id="${cat.id}">${cat.categoryTitle}</h2>`;
+                htmlContent += `<div class="grid-container">`;
+                cat.items.forEach(item => {
+                    htmlContent += `
+                        <div class="card" data-title="${item.title}">
+                            <img src="${item.img}" alt="${item.title}">
+                            <div class="card-body">
+                                <div class="card-title">${item.title}</div>
+                                <div class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="card-desc">${item.desc}</div>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary" onclick="openRecipe('${item.title}', \`${item.recipe}\`)"><i class="fas fa-book-open"></i> مکمل ترکیب</button>
+                                    <button class="btn btn-video" onclick="openVideo('${item.title}')"><i class="fas fa-video"></i> ویڈیو</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                htmlContent += `</div>`;
+            });
+            mainContainer.innerHTML += htmlContent;
+        }
+
+        // Initialize Rendering
+        renderAllRecipes();
+
+        // Search Engine Functionality
         const searchInput = document.getElementById('searchInput');
-        const allCards = document.querySelectorAll('.card');
-
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
+            const allCards = document.querySelectorAll('.card');
             allCards.forEach(card => {
                 const title = card.getAttribute('data-title').toLowerCase();
                 if (title.includes(query)) {
@@ -666,24 +577,30 @@
             });
         });
 
-        // Modal Logic
+        // Sidebar Toggle for Mobile
+        document.getElementById('toggleSidebar').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Modal Handling
         const modal = document.getElementById('modal');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
 
-        function openModal(title, details) {
-            modalTitle.innerText = title + " - ترکیب";
-            modalBody.innerHTML = `<p style="white-space: pre-line; line-height: 1.8;">${details}</p>`;
+        function openRecipe(title, recipeText) {
+            modalTitle.innerText = title + " - بنانے کی مکمل ترکیب";
+            modalBody.innerHTML = `<p style="white-space: pre-line; line-height: 1.8; font-size: 15px;">${recipeText}</p>`;
             modal.style.display = 'flex';
         }
 
         function openVideo(title) {
-            modalTitle.innerText = title + " - ویڈیو ڈیمو";
+            modalTitle.innerText = title + " - ویڈیو گائیڈ";
             modalBody.innerHTML = `
                 <div style="text-align: center; padding: 20px;">
-                    <i class="fab fa-youtube" style="font-size: 60px; color: red; margin-bottom: 15px;"></i>
-                    <p style="font-size: 18px; margin-bottom: 15px;">"${title}" کی ویڈیو دیکھنے کے لیے بٹن پر کلک کریں!</p>
-                    <a href="https://youtube.com" target="_blank" class="btn btn-primary" style="display: inline-block;">یوٹیوب پر ویڈیو دیکھیں</a>
+                    <i class="fab fa-youtube" style="font-size: 70px; color: red; margin-bottom: 15px;"></i>
+                    <p style="font-size: 18px; margin-bottom: 20px;">"${title}" کو 3 مختلف طریقوں سے پکانے کی ویڈیو دیکھیں!</p>
+                    <a href="https://youtube.com" target="_blank" class="sub-btn" style="display: inline-flex; justify-content: center;">یوٹیوب پر ویڈیو دیکھیں</a>
                 </div>
             `;
             modal.style.display = 'flex';
