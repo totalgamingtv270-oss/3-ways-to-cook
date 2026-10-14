@@ -7,141 +7,170 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #e67e22;
+            --primary: #f39c12;
             --primary-dark: #d35400;
-            --secondary: #1a252f;
-            --bg: #f8f9fa;
+            --secondary: #1e272e;
+            --bg: #f5f6fa;
             --card-bg: #ffffff;
-            --text: #2c3e50;
-            --light-text: #7f8c8d;
-            --radius: 12px;
-            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --text: #2f3640;
+            --light-text: #718093;
+            --radius: 16px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
+        /* Stunning Modern Hero Header */
         header {
-            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            background: linear-gradient(135deg, #1e272e 0%, #2f3640 100%);
             color: white;
-            padding: 3.5rem 1rem 2.5rem 1rem;
+            padding: 5rem 1rem 4rem 1rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 5px solid var(--primary);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(243,156,18,0.15) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.8rem;
             color: var(--primary);
-            font-weight: 800;
-            margin-bottom: 0.5rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         header p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 1.5rem auto;
-            opacity: 0.9;
+            font-size: 1.25rem;
+            max-width: 750px;
+            margin: 0 auto 2rem auto;
+            color: #dcdde1;
+            font-weight: 300;
         }
 
-        /* Recipe of the Day Banner */
-        .featured-banner {
-            background: linear-gradient(135deg, #f39c12, #d35400);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: var(--radius);
-            margin: 20px auto;
-            max-width: 1300px;
-            box-shadow: 0 5px 20px rgba(243, 156, 18, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-
-        .featured-banner h3 { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
-        .featured-btn {
-            background: white;
-            color: var(--primary-dark);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .featured-btn:hover { background: var(--secondary); color: white; }
-
+        /* Glassmorphism Search Box */
         .search-box {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             position: relative;
         }
 
         .search-box input {
             width: 100%;
-            padding: 14px 20px 14px 50px;
-            border-radius: 30px;
-            border: none;
-            font-size: 1.05rem;
+            padding: 18px 20px 18px 55px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.2);
+            font-size: 1.1rem;
             outline: none;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transition: var(--transition);
         }
+
+        .search-box input::placeholder { color: #bdc3c7; }
+        .search-box input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.15); }
 
         .search-box i {
             position: absolute;
-            left: 20px;
+            left: 22px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--light-text);
-            font-size: 1.2rem;
+            color: var(--primary);
+            font-size: 1.3rem;
         }
 
+        /* Recipe of the Day Featured Banner */
+        .featured-banner {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 22px 35px;
+            text-align: center;
+            border-radius: var(--radius);
+            margin: -30px auto 30px auto;
+            max-width: 1250px;
+            box-shadow: 0 10px 25px rgba(243, 156, 18, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .featured-banner h3 { font-size: 1.4rem; display: flex; align-items: center; gap: 12px; font-weight: 700; }
+        .featured-btn {
+            background: white;
+            color: var(--secondary);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .featured-btn:hover { background: var(--secondary); color: white; transform: translateY(-2px); }
+
+        /* Sticky Navigation Bar */
         .sticky-nav {
             position: sticky;
             top: 0;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             z-index: 100;
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
         }
 
         .cat-btn {
-            background: #edf2f7;
+            background: #f1f2f6;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border-radius: 30px;
             font-weight: 700;
             color: var(--secondary);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 0.95rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
 
         .cat-btn:hover, .cat-btn.active {
             background: var(--primary);
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.3);
         }
 
         .container {
             max-width: 1300px;
-            margin: 2rem auto;
+            margin: 3rem auto;
             padding: 0 1.5rem;
         }
 
         .category-section {
-            margin-bottom: 4rem;
+            margin-bottom: 4.5rem;
         }
 
         .section-header {
@@ -149,75 +178,88 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 3px solid var(--primary);
-            padding-bottom: 10px;
-            margin-bottom: 2rem;
+            padding-bottom: 12px;
+            margin-bottom: 2.5rem;
         }
 
         .section-header h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--secondary);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            font-weight: 800;
         }
 
         .section-header span {
             background: var(--primary);
             color: white;
-            font-size: 0.9rem;
-            padding: 4px 12px;
-            border-radius: 20px;
+            font-size: 0.95rem;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-weight: bold;
         }
 
         .recipes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 25px;
+            gap: 30px;
         }
 
+        /* Modern Card Design */
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
             position: relative;
+            border: 1px solid rgba(0,0,0,0.04);
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
         }
 
-        /* Favorite Heart Icon */
         .fav-btn {
             position: absolute;
             top: 15px; right: 15px;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.95);
             border: none;
-            width: 38px; height: 38px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
-            color: #ccc;
-            transition: 0.3s;
+            font-size: 1.3rem;
+            color: #b2bec3;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             z-index: 10;
         }
-        .fav-btn.active, .fav-btn:hover { color: #e74c3c; background: white; }
+        .fav-btn.active, .fav-btn:hover { color: #e74c3c; transform: scale(1.1); }
 
-        .card-img {
-            height: 220px;
-            width: 100%;
-            object-fit: cover;
+        .card-img-wrapper {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
         }
 
+        .card-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img { transform: scale(1.08); }
+
         .card-body {
-            padding: 1.5rem;
+            padding: 1.8rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -225,68 +267,74 @@
 
         .badge {
             align-self: flex-start;
-            background: #feebc8;
-            color: #742a2a;
-            font-size: 0.75rem;
+            background: #ffeaa7;
+            color: #d35400;
+            font-size: 0.8rem;
             font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 6px 14px;
+            border-radius: 20px;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
         .card-title {
-            font-size: 1.35rem;
+            font-size: 1.45rem;
             color: var(--secondary);
             margin-bottom: 8px;
+            font-weight: 800;
         }
 
         .card-desc {
             color: var(--light-text);
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             margin-bottom: 15px;
             flex-grow: 1;
         }
 
         .health-box {
-            background: #e6fffa;
-            border-left: 4px solid #319795;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: #234e52;
-            margin-bottom: 15px;
+            background: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            color: #16a085;
+            margin-bottom: 18px;
+            font-weight: 500;
         }
 
         .rating-stars {
-            color: #f39c12;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
+            color: #f1c40f;
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+            font-weight: bold;
         }
 
         .btn-view {
             background: var(--secondary);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            transition: background 0.3s ease;
+            transition: var(--transition);
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
+            font-size: 1rem;
         }
 
-        .btn-view:hover { background: var(--primary); }
+        .btn-view:hover { background: var(--primary); box-shadow: 0 5px 15px rgba(243,156,18,0.4); }
 
         /* Modal & Welcome Popup */
         .modal-overlay, .welcome-overlay {
             position: fixed;
             top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(5px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -297,42 +345,53 @@
         .modal-content, .welcome-content {
             background: white;
             width: 100%;
-            max-width: 850px;
+            max-width: 900px;
             max-height: 90vh;
             border-radius: var(--radius);
             overflow-y: auto;
-            padding: 2.5rem;
+            padding: 3rem;
             position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .welcome-content {
-            max-width: 500px;
+            max-width: 520px;
             text-align: center;
         }
 
         .close-modal, .close-welcome {
             position: absolute;
-            top: 20px; right: 25px;
-            font-size: 2rem;
+            top: 25px; right: 30px;
+            font-size: 2.2rem;
             cursor: pointer;
-            color: #888;
+            color: #b2bec3;
+            transition: var(--transition);
         }
+        .close-modal:hover, .close-welcome:hover { color: var(--secondary); }
 
         .method-tabs {
             display: flex;
-            gap: 10px;
-            margin: 20px 0 15px 0;
-            border-bottom: 2px solid #e2e8f0;
+            gap: 12px;
+            margin: 25px 0 20px 0;
+            border-bottom: 2px solid #dfe6e9;
         }
 
         .m-btn {
-            padding: 10px 18px;
+            padding: 12px 22px;
             border: none;
             background: none;
             font-weight: 700;
             color: var(--light-text);
             cursor: pointer;
             border-bottom: 3px solid transparent;
+            font-size: 1rem;
+            transition: var(--transition);
         }
 
         .m-btn.active {
@@ -340,47 +399,50 @@
             border-bottom-color: var(--primary);
         }
 
-        .m-content { display: none; padding: 10px 0; }
+        .m-content { display: none; padding: 15px 0; font-size: 1.05rem; }
         .m-content.active { display: block; }
 
-        /* Comments Form in Modal */
         .comment-box {
-            margin-top: 20px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
+            margin-top: 25px;
+            border-top: 2px solid #dfe6e9;
+            padding-top: 20px;
         }
         .comment-box input, .comment-box textarea {
-            width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px;
+            width: 100%; padding: 12px 15px; margin-bottom: 12px; border: 1px solid #dfe6e9; border-radius: 8px; font-size: 1rem; outline: none;
         }
+        .comment-box input:focus, .comment-box textarea:focus { border-color: var(--primary); }
         .comment-submit {
-            background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;
+            background: var(--primary); color: white; border: none; padding: 10px 22px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: var(--transition);
         }
+        .comment-submit:hover { background: var(--primary-dark); }
 
         footer {
             background: var(--secondary);
             color: white;
             text-align: center;
-            padding: 3rem 1rem;
-            margin-top: 4rem;
+            padding: 4rem 1.5rem;
+            margin-top: 5rem;
+            border-top: 5px solid var(--primary);
         }
 
         .newsletter-box {
-            max-width: 500px;
-            margin: 0 auto 2rem auto;
+            max-width: 550px;
+            margin: 0 auto 2.5rem auto;
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
         .newsletter-box input {
-            flex: 1; padding: 12px; border-radius: 25px; border: none; outline: none; padding-left: 20px;
+            flex: 1; padding: 15px 20px; border-radius: 30px; border: none; outline: none; font-size: 1rem;
         }
         .newsletter-box button {
-            background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer;
+            background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: var(--transition); font-size: 1rem;
         }
+        .newsletter-box button:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2.2rem; }
+            header h1 { font-size: 2.5rem; }
             .recipes-grid { grid-template-columns: 1fr; }
-            .featured-banner { text-align: center; justify-content: center; }
+            .featured-banner { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -390,12 +452,13 @@
     <div class="welcome-overlay" id="welcomePopup" style="display: flex;">
         <div class="welcome-content">
             <span class="close-welcome" onclick="closeWelcome()">&times;</span>
-            <h2 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-utensils"></i> Welcome to 3 Ways To Cook!</h2>
-            <p style="color: var(--light-text); margin-bottom: 20px;">Explore over 30+ master halal recipes with Traditional, Express, and Air-Fryer cooking methods. Save your favorites and rate dishes now!</p>
-            <button class="featured-btn" onclick="closeWelcome()" style="background: var(--primary); color: white; width: 100%; padding: 12px;">Start Exploring Recipes</button>
+            <h2 style="color: var(--primary); margin-bottom: 12px; font-size: 2rem;"><i class="fas fa-utensils"></i> Welcome!</h2>
+            <p style="color: var(--light-text); margin-bottom: 25px; font-size: 1.05rem;">Discover over 30+ master halal international recipes complete with Traditional, Express, and Air-Fryer cooking methods. Enjoy your culinary journey!</p>
+            <button class="featured-btn" onclick="closeWelcome()" style="background: var(--primary); color: white; width: 100%; padding: 14px; font-size: 1.1rem;">Start Exploring Recipes</button>
         </div>
     </div>
 
+    <!-- Stunning Hero Header -->
     <header>
         <h1>3 Ways To Cook</h1>
         <p>The Ultimate Global Culinary Portal featuring Pakistani Biryani, Karahi, Soups, Main Courses, Salads, and Beverages!</p>
@@ -408,11 +471,12 @@
     <!-- Recipe of the Day Featured Banner -->
     <div class="container" style="margin-bottom: 0;">
         <div class="featured-banner">
-            <h3><i class="fas fa-star" style="color: #ffeaa7;"></i> Recipe of the Day: Hyderabadi Raw Meat Biryani</h3>
+            <h3><i class="fas fa-star" style="color: #fff200;"></i> Recipe of the Day: Hyderabadi Raw Meat Biryani</h3>
             <button class="featured-btn" onclick="openModal('biryani', 1)">View Special Recipe</button>
         </div>
     </div>
 
+    <!-- Sticky Navigation Bar -->
     <nav class="sticky-nav">
         <button class="cat-btn active" onclick="scrollToSection('all')"><i class="fas fa-border-all"></i> All Sections</button>
         <button class="cat-btn" onclick="scrollToSection('biryani')"><i class="fas fa-bowl-rice"></i> Biryanis</button>
@@ -423,10 +487,12 @@
         <button class="cat-btn" onclick="scrollToSection('desserts')"><i class="fas fa-ice-cream"></i> Desserts & Beverages</button>
     </nav>
 
+    <!-- Main Container -->
     <div class="container" id="mainContainer">
-        <!-- Rendered via JS -->
+        <!-- Rendered via JavaScript -->
     </div>
 
+    <!-- Recipe Modal Popup -->
     <div class="modal-overlay" id="recipeModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -434,8 +500,9 @@
         </div>
     </div>
 
+    <!-- Professional Footer & Newsletter -->
     <footer>
-        <h3 style="margin-bottom: 15px;">Subscribe for Weekly Secret Recipes</h3>
+        <h3 style="margin-bottom: 15px; font-size: 1.6rem;">Subscribe for Weekly Secret Recipes</h3>
         <div class="newsletter-box">
             <input type="email" placeholder="Enter your email address...">
             <button onclick="alert('Thank you for subscribing to 3 Ways To Cook!')">Subscribe</button>
@@ -496,7 +563,7 @@
                 title: "Salads & Sauces",
                 icon: "fa-leaf",
                 items: [
-                    { id: 24, title: "Russian Olivier Salad", origin: "Russian", desc: "Traditional chilled potato salad with shredded chicken, boiled eggs, peas, and mayonnaise.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Boiled Potatoes", "Chicken", "Boiled Eggs", "Green Peas", "Mayonnaise"], health: "High energy and protein recovery meal rich in dietary fiber.", rating: "⭐⭐⭐⭐⭐ (4.9 / 5)", m1: "Traditional Chilled Mix: Dice boiled veggies and chicken evenly, fold with mayonnaise, chill 2 hours.", m2: "Quick Mayo Mix: Fold store-bought veg mix with shredded chicken and mayo.", m3: "Greek Yogurt Salad: Replace mayonnaise entirely with seasoned Greek yogurt." },
+                    { id: 24, title: "Russian Olivier Salad", origin: "Russian", desc: "Traditional chilled potato salad with shredded chicken, boiled eggs, peas, and mayonnaise.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Boiled Potatoes", "Chicken", "Boiled Eggs", "Green Peas", "Mayonnaise"], health: "High energy and protein recovery meal rich in dietary fiber.", rating: "⭐⭐⭐⭐⭐ (4.9 / 5)", m1: "Traditional Chilled Mix: Dice boiled veggies and chicken evenly, fold with mayonnaise, chill 2 hours.", m2: "Quick Mayo Mix: Fold store-bought boiled veg mix with shredded chicken and mayo.", m3: "Greek Yogurt Salad: Replace mayonnaise entirely with seasoned Greek yogurt." },
                     { id: 25, title: "Coleslaw Salad", origin: "International", desc: "Crispy shredded cabbage and grated carrots tossed in sweet creamy dressing.", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", ing: ["Cabbage Shredded", "Carrots Grated", "Mayonnaise", "Sugar", "Vinegar"], health: "Rich in Vitamin C and raw fiber for smooth digestion.", rating: "⭐⭐⭐⭐☆ (4.7 / 5)", m1: "Traditional Chill: Shred cabbage and carrots, mix with mayo, sugar, and vinegar, refrigerate.", m2: "Express Coleslaw: Mix pre-bagged slaw with bottled dressing.", m3: "Honey Yogurt Slaw: Use Greek yogurt and honey instead of sugar and mayo." },
                     { id: 26, title: "Thousand Island Dressing", origin: "International", desc: "Creamy pink sauce made with mayonnaise, ketchup, pickles, and onions.", img: "https://images.unsplash.com/photo-1472911951475-2ec9bd6c072d?w=500", ing: ["Mayonnaise", "Tomato Ketchup", "Diced Pickles", "Onions", "Paprika"], health: "Adds delicious flavor and healthy fats to raw vegetable salads.", rating: "⭐⭐⭐⭐☆ (4.6 / 5)", m1: "Traditional Whisk: Mix mayonnaise, ketchup, finely diced pickles, and onions until smooth pink.", m2: "Quick Blend: Blend ingredients in food processor 10 seconds.", m3: "Light Yogurt Dressing: Use light yogurt-based mayo." },
                     { id: 27, title: "Green Chutney (Hariyali Sauce)", origin: "Pakistani", desc: "Fresh vibrant mint, coriander, green chili, and garlic dipping sauce.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Fresh Mint", "Coriander", "Green Chilies", "Garlic", "Lemon Juice"], health: "Detoxifies liver, aids digestion, and freshens breath with herbal enzymes.", rating: "⭐⭐⭐⭐⭐ (4.9 / 5)", m1: "Traditional Blend: Grind mint, coriander, green chilies, garlic, lemon juice, and salt in blender.", m2: "Mortar Pestle Crush: Crush herbs manually for rustic traditional texture.", m3: "Zero-Salt Herb Blend: Omit salt and add extra lemon juice for low sodium diets." }
@@ -525,7 +592,9 @@
                     cardsHtml += `
                         <div class="card" data-title="${item.title.toLowerCase()}" data-ing="${item.ing.join(' ').toLowerCase()}">
                             <button class="fav-btn" onclick="toggleFavorite(this)"><i class="fas fa-heart"></i></button>
-                            <img src="${item.img}" class="card-img" alt="${item.title}">
+                            <div class="card-img-wrapper">
+                                <img src="${item.img}" class="card-img" alt="${item.title}">
+                            </div>
                             <div class="card-body">
                                 <span class="badge">${item.origin} Cuisine</span>
                                 <h3 class="card-title">${item.title}</h3>
@@ -590,19 +659,19 @@
             const modalBody = document.getElementById('modalBody');
 
             modalBody.innerHTML = `
-                <h2 style="color:var(--primary); margin-bottom:5px;">${item.title}</h2>
+                <h2 style="color:var(--secondary); margin-bottom:5px; font-size: 2rem;">${item.title}</h2>
                 <span class="badge">${item.origin} Specialty</span>
-                <div class="rating-stars" style="margin: 5px 0;">${item.rating}</div>
-                <p style="margin:10px 0; color:#555;">${item.desc}</p>
+                <div class="rating-stars" style="margin: 8px 0;">${item.rating}</div>
+                <p style="margin:12px 0; color:#555; font-size: 1.05rem;">${item.desc}</p>
                 
                 ${item.health ? `<div class="health-box"><strong><i class="fas fa-heartbeat"></i> Health Benefit:</strong> ${item.health}</div>` : ''}
 
-                <div style="background:#f7fafc; padding:15px; border-left:4px solid var(--primary); margin:15px 0; border-radius:4px;">
-                    <h4 style="margin-bottom:5px;"><i class="fas fa-shopping-basket"></i> Key Ingredients:</h4>
-                    <p style="font-size:0.95rem;">${item.ing.join(', ')}</p>
+                <div style="background:#f8f9fa; padding:18px; border-left:5px solid var(--primary); margin:20px 0; border-radius:8px;">
+                    <h4 style="margin-bottom:8px; color: var(--secondary);"><i class="fas fa-shopping-basket"></i> Key Ingredients:</h4>
+                    <p style="font-size:1rem; color: #4b6584;">${item.ing.join(', ')}</p>
                 </div>
 
-                <h3 style="margin-top:20px;">3 Ways To Cook:</h3>
+                <h3 style="margin-top:25px; color: var(--secondary);">3 Ways To Cook:</h3>
                 <div class="method-tabs">
                     <button class="m-btn active" onclick="switchTab(event, 't1')">Method 1: Traditional</button>
                     <button class="m-btn" onclick="switchTab(event, 't2')">Method 2: Express / Pressure</button>
@@ -620,7 +689,7 @@
                 </div>
 
                 <div class="comment-box">
-                    <h4>Leave a Review or Comment:</h4>
+                    <h4 style="margin-bottom: 12px; color: var(--secondary);">Leave a Review or Comment:</h4>
                     <input type="text" id="userName" placeholder="Your Name">
                     <textarea id="userComment" rows="3" placeholder="Write your review about this recipe..."></textarea>
                     <button class="comment-submit" onclick="submitReview()">Post Review</button>
