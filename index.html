@@ -530,4 +530,525 @@
         displayRecipes(recipes);
     </script>
 </body>
+</html> <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Ways To Cook - Global Halal Master Recipe Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --secondary: #1a252f;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --light-text: #7f8c8d;
+            --radius: 12px;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        header {
+            background: linear-gradient(135deg, #1a252f, #2c3e50);
+            color: white;
+            padding: 3.5rem 1rem 2.5rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem auto;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1.05rem;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text);
+            font-size: 1.2rem;
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cat-btn {
+            background: #edf2f7;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header span {
+            background: var(--primary);
+            color: white;
+            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .card-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .badge {
+            align-self: flex-start;
+            background: #feebc8;
+            color: #742a2a;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .health-box {
+            background: #e6fffa;
+            border-left: 4px solid #319795;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #234e52;
+            margin-bottom: 15px;
+        }
+
+        .btn-view {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-view:hover {
+            background: var(--primary);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 850px;
+            max-height: 90vh;
+            border-radius: var(--radius);
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .method-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .m-btn {
+            padding: 10px 18px;
+            border: none;
+            background: none;
+            font-weight: 700;
+            color: var(--light-text);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .m-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .m-content { display: none; padding: 10px 0; }
+        .m-content.active { display: block; }
+
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .recipes-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>3 Ways To Cook</h1>
+        <p>The Ultimate Global Culinary Portal featuring Pakistani Biryani, Karahi, Soups, Main Courses, Salads, and Beverages!</p>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search recipes, ingredients, or cuisines..." onkeyup="filterRecipes()">
+        </div>
+    </header>
+
+    <nav class="sticky-nav">
+        <button class="cat-btn active" onclick="scrollToSection('all')"><i class="fas fa-border-all"></i> All Sections</button>
+        <button class="cat-btn" onclick="scrollToSection('biryani')"><i class="fas fa-bowl-rice"></i> Biryanis</button>
+        <button class="cat-btn" onclick="scrollToSection('karahi')"><i class="fas fa-fire"></i> Karahis</button>
+        <button class="cat-btn" onclick="scrollToSection('starters')"><i class="fas fa-mug-hot"></i> Soups & Starters</button>
+        <button class="cat-btn" onclick="scrollToSection('main')"><i class="fas fa-utensils"></i> Main Course & Chinese</button>
+        <button class="cat-btn" onclick="scrollToSection('salads')"><i class="fas fa-leaf"></i> Salads & Sauces</button>
+        <button class="cat-btn" onclick="scrollToSection('desserts')"><i class="fas fa-ice-cream"></i> Desserts & Beverages</button>
+    </nav>
+
+    <div class="container" id="mainContainer">
+        <!-- Dynamically rendered via JS -->
+    </div>
+
+    <div class="modal-overlay" id="recipeModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 3 Ways To Cook. All International Halal Recipes with 3 Cooking Methods.</p>
+    </footer>
+
+    <script>
+        const masterDatabase = {
+            biryani: {
+                title: "Biryani Specialities",
+                icon: "fa-bowl-rice",
+                items: [
+                    { id: 1, title: "Hyderabadi Raw Meat Biryani", origin: "Pakistani", desc: "Raw mutton/chicken marinated in rich spices and layered with rice for authentic Dum cooking.", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500", ing: ["Mutton/Chicken 1kg", "Basmati Rice 1kg", "Yogurt 2 cups", "Fried Onions", "Ginger Garlic", "Saffron & Kewra"], health: "High protein & rich essential oils for joint health.", m1: "Traditional Dum: Marinate raw meat 4 hours, layer half-cooked rice, seal with dough, dum cook 50 mins.", m2: "Pressure Cooker Express: Soften meat in cooker 15 mins, layer with parboiled rice, dum 15 mins.", m3: "Healthier Lean Dum: Trim fat, use Greek yogurt, and cook with olive oil." },
+                    { id: 2, title: "Sindhi Biryani", origin: "Pakistani", desc: "Famous spicy biryani loaded with potatoes, tomatoes, plums, and tangy tamarind pulp.", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=500", ing: ["Chicken/Mutton 1kg", "Potatoes 4", "Tomatoes 1/2kg", "Plums & Tamarind", "Sindhi Masala"], health: "Rich in Vitamin C and digestion-boosting tamarind antioxidants.", m1: "Traditional Dum: Cook spicy tomato-potato gravy, layer boiled rice, add plum extract, dum 20 mins.", m2: "One-Pot Skillet: Cook chicken, potatoes and rice together in a deep skillet.", m3: "Low-Sodium Healthy: Use lean meat and reduce oil by half." },
+                    { id: 3, title: "Bombay Biryani", origin: "Pakistani", desc: "Sweet and spicy biryani infused with fried potatoes, kewra water, and golden raisins.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500", ing: ["Chicken 1kg", "Rice 1kg", "Potatoes 3", "Plums 10", "Kewra Essence"], health: "Provides quick sustained energy from balanced carbs and proteins.", m1: "Traditional Layering: Fry potatoes, cook chicken masala, layer rice with kewra and saffron.", m2: "Quick Pan Fry: Stir-fry chicken and pre-boiled potatoes in Bombay masala paste.", m3: "Air-Fried Potato & Grilled Chicken: Air-fry potatoes without deep frying." },
+                    { id: 4, title: "Kolkata Biryani", origin: "Pakistani", desc: "Characterized by spiced boiled potatoes and boiled eggs with aromatic gentle spices.", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500", ing: ["Chicken/Mutton 1kg", "Potatoes 4", "Boiled Eggs 4", "Nutmeg & Mace", "Rose Water"], health: "Balanced meal with high protein eggs and carbohydrate energy.", m1: "Traditional Dum: Fry spiced potatoes, layer chicken curry, rice, eggs, rose water, and dum.", m2: "Express Pot: Pressure cook meat 15 mins, assemble with parboiled potatoes and eggs.", m3: "Low-Cholesterol Egg Whites: Use egg whites only and lean meat cuts." },
+                    { id: 5, title: "Awadhi / Lucknowi Biryani", origin: "Pakistani", desc: "Nawabi style soft meat cooked in fragrant broth (Yakhni) with delicate subtle spices.", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500", ing: ["Mutton 1kg", "Fennel & Coriander Seeds", "Yogurt & Cream", "Ghee", "Kewra"], health: "Easily digestible stock (Yakhni) nourishes joints and gut lining.", m1: "Traditional Yakhni Dum: Boil meat in fennel-coriander stock, cook rice in stock, layer and dum 20 mins.", m2: "Pressure Yakhni: Extract stock in pressure cooker 25 mins, finish quickly.", m3: "Trimmed Fat Yakhni: Skim all fat from broth before cooking rice." },
+                    { id: 6, title: "Malabar Biryani", origin: "South Indian", desc: "Prepared with short-grain aromatic Khaima/Jeerakasala rice and ghee.", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=500", ing: ["Chicken 1kg", "Jeerakasala Rice 3 cups", "Cashews & Raisins", "Ghee", "Tomatoes"], health: "Ghee provides healthy short-chain fatty acids for brain function.", m1: "Traditional Malabar Dum: Sauté chicken with spices, fry small rice in ghee, layer and dum 15 mins.", m2: "Quick Skillet Rice: Cook small rice directly with chicken masala.", m3: "Light Olive Oil Malabar: Replace half ghee with extra virgin olive oil." },
+                    { id: 7, title: "Chicken Tikka Biryani", origin: "Pakistani", desc: "Charcoal-smoked tandoori chicken tikka pieces layered in rich biryani rice.", img: "https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=500", ing: ["Boneless Chicken 750g", "Tikka Masala", "Lemon Juice", "Charcoal Coal", "Rice"], health: "High protein, low carb chicken base grilled for clean muscle building.", m1: "Traditional Smoke Dum: Grill marinated tikka, smoke with coal, layer with spicy rice and dum.", m2: "Pan Sear Tikka: Sear chicken on stove, pour masala, toss in cooked rice.", m3: "Air-Fryer Tikka: Air-fry chicken pieces without oil before adding to rice." }
+                ]
+            },
+            karahi: {
+                title: "Karahi Specialties",
+                icon: "fa-fire",
+                items: [
+                    { id: 8, title: "Shinwari Chicken Karahi", origin: "Pakistani", desc: "Authentic KPK style cooked only in tomatoes, black pepper, and salt without onions or yogurt.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500", ing: ["Chicken 1kg", "Tomatoes 1kg", "Black Pepper", "Green Chilies", "Ghee"], health: "Pure tomato lycopene protects heart health and reduces inflammation.", m1: "Traditional Wok: Fry chicken in ghee, cover with halved tomatoes, remove skins, bhunno with black pepper.", m2: "Pressure Karahi: Soften meat in cooker 10 mins, finish high-flame tomato fry in wok.", m3: "Olive Oil Shinwari: Use olive oil instead of heavy animal fat." },
+                    { id: 9, title: "Butter Chicken Karahi", origin: "Pakistani", desc: "Creamy, mild, and buttery tomato gravy karahi loved by everyone.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500", ing: ["Boneless Chicken 750g", "Butter 1/2 cup", "Fresh Cream", "Tomato Puree", "Kasuri Methi"], health: "Provides comforting calories and saturated fats for energy.", m1: "Traditional Skillet: Sauté chicken in butter, add tomato puree and cream, simmer with kasuri methi.", m2: "Quick Pan Melt: Cook chicken in ready tomato butter sauce 12 mins.", m3: "Greek Yogurt Butter Chicken: Substitute heavy cream with low-fat Greek yogurt." },
+                    { id: 10, title: "Lahori White Karahi", origin: "Pakistani", desc: "Creamy white gravy karahi made with yogurt, onion paste, and white pepper.", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500", ing: ["Chicken 1kg", "Yogurt 1.5 cups", "Cream", "Onion Paste", "White Pepper"], health: "Easily digestible probiotics from curd and dairy proteins.", m1: "Traditional Wok: Sauté chicken in ghee, add onion paste and yogurt, finish with cream and white pepper.", m2: "Express White Pot: Simmer chicken in yogurt and cream 15 mins.", m3: "Skimmed Milk White Karahi: Use skimmed milk and yogurt to cut calorie count." },
+                    { id: 11, title: "Mutton Karahi", origin: "Pakistani", desc: "Tender mutton cooked with tomatoes, ginger, crushed red pepper, and cumin.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500", ing: ["Mutton 1kg", "Tomatoes 1/2kg", "Ginger Garlic", "Crushed Chili", "Cumin"], health: "High iron and zinc content for immunity and blood cell production.", m1: "Traditional Karahi: Pressure cook mutton 80%, fry in wok with tomatoes, cumin, and red chili.", m2: "Instant Pot Mutton: Cook mutton and tomatoes together under pressure 25 mins.", m3: "Lean Mutton Light Oil: Trim all visible fat and cook with minimal oil." },
+                    { id: 12, title: "Chicken Achari Karahi", origin: "Pakistani", desc: "Tangy karahi spiced with traditional pickle spices (nigella, fennel, mustard seeds).", img: "https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=500", ing: ["Chicken 1kg", "Achari Masala Mix", "Yogurt", "Tomatoes", "Green Chilies"], health: "Spices like fennel and mustard stimulate digestive metabolism.", m1: "Traditional Wok: Sauté chicken, add tomatoes, yogurt, and achari spices; stuff green chilies with pickle mix.", m2: "Quick Skillet Achari: Pan fry chicken with pre-made achari paste 15 mins.", m3: "Air-Fried Achari Chicken: Air-fry chicken and toss in light pickle gravy." }
+                ]
+            },
+            starters: {
+                title: "Soups & Starters",
+                icon: "fa-mug-hot",
+                items: [
+                    { id: 13, title: "Hot & Sour Soup Red", origin: "Chinese", desc: "Classic spicy and tangy chicken soup filled with shredded chicken, carrots, and egg ribbons.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500", ing: ["Chicken Broth", "Shredded Chicken", "Carrots & Mushrooms", "Vinegar & Chili Sauce", "Egg"], health: "Clears sinuses and boosts hydration with warm electrolytes.", m1: "Traditional Simmer: Boil broth with chicken and veggies, add vinegar, chili, thicken with cornstarch, swirl egg.", m2: "Express Soup: Use pre-made stock and canned mushrooms for 10-min prep.", m3: "Low-Starch Clear Soup: Reduce cornstarch and use extra egg whites." },
+                    { id: 14, title: "Chicken Corn Soup", origin: "Chinese", desc: "Comforting warm soup made with chicken broth, sweet corn kernels, and egg white.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500", ing: ["Chicken Broth", "Sweet Corn", "Chicken Bits", "Cornstarch", "Egg White"], health: "Provides gentle energy and amino acids for comforting recovery.", m1: "Traditional Boil: Simmer broth with corn and chicken, thicken with cornstarch, drizzle egg white.", m2: "Quick Canned Corn Soup: Use creamed corn and pre-cooked chicken.", m3: "High-Protein Egg White Soup: Add double egg whites and skip cornstarch." },
+                    { id: 15, title: "Buffalo Wings", origin: "International", desc: "Crispy chicken wings tossed in tangy buttery hot chili sauce.", img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=500", ing: ["Chicken Wings", "Butter", "Hot Sauce", "Vinegar", "Garlic"], health: "High protein and fat snack for low-carb energy boosts.", m1: "Traditional Bake & Toss: Bake wings till crispy, toss in melted butter and hot sauce mix.", m2: "Deep Fried Buffalo: Deep fry wings crisp and coat in hot sauce.", m3: "Oil-Free Air-Fried Wings: Air-fry wings without oil and toss in light hot sauce." },
+                    { id: 16, title: "Crispy Fried Wonton", origin: "Chinese", desc: "Wonton wrappers stuffed with seasoned minced chicken, fried golden and crispy.", img: "https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=500", ing: ["Wonton Wrappers", "Minced Chicken", "Spring Onion", "Soy Sauce", "Oil"], health: "Crispy appetizer providing balanced protein and carbs.", m1: "Traditional Fry: Stuff wrappers with minced chicken, seal edges, fry golden in hot oil.", m2: "Air-Fried Wontons: Spray wontons with light oil and air-fry 8 mins.", m3: "Steamed Wontons: Steam wontons instead of frying for zero oil." },
+                    { id: 17, title: "French Fries", origin: "International", desc: "Crispy golden potato batons seasoned with sea salt.", img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500", ing: ["Potatoes", "Salt", "Oil", "Cornstarch"], health: "Provides fast carbohydrate energy for athletes.", m1: "Traditional Double Fry: Cut potatoes, soak in cold water, double fry till golden and crispy.", m2: "Frozen Express Fries: Fry pre-cut frozen fries in hot oil.", m3: "Oven Baked Fries: Toss potato sticks in 1 tsp olive oil and bake till crisp." },
+                    { id: 18, title: "Dynamite Prawns", origin: "International", desc: "Crispy battered prawns coated in creamy spicy mayonnaise sriracha sauce.", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=500", ing: ["Prawns", "Cornstarch", "Egg", "Mayonnaise", "Sriracha Hot Sauce"], health: "Rich in omega-3 fatty acids and high-quality seafood protein.", m1: "Traditional Fry & Coat: Batter prawns in cornstarch and egg, fry crisp, toss in spicy mayo sauce.", m2: "Skillet Prawns: Pan-sear prawns quickly and toss in sauce.", m3: "Air-Fried Dynamite Prawns: Air-fry prawns and use light Greek yogurt mayo." }
+                ]
+            },
+            main: {
+                title: "Main Course & Chinese",
+                icon: "fa-utensils",
+                items: [
+                    { id: 19, title: "Chicken Tarragon Steak", origin: "International", desc: "Tender grilled chicken breast served in rich creamy tarragon herb sauce.", img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500", ing: ["Chicken Breast Fillet", "Butter", "Heavy Cream", "Tarragon Leaves", "Garlic"], health: "High protein muscle meal with aromatic herbs that aid digestion.", m1: "Traditional Grill & Sauce: Grill chicken in butter, prepare creamy tarragon sauce in pan, pour over steak.", m2: "Skillet Steak: Pan-sear chicken breasts 10 mins, make quick cream sauce.", m3: "Olive Oil & Milk Steak: Use olive oil and low-fat milk for light cream sauce." },
+                    { id: 20, title: "Singaporean Rice", origin: "International", desc: "Layered fusion dish with boiled rice, noodles, chicken gravy, mayonnaise, and chili sauce lines.", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=500", ing: ["Boiled Rice", "Noodles", "Chicken Veg Gravy", "Mayonnaise", "Chili Garlic Sauce"], health: "Complete balanced meal containing grains, proteins, and vegetables.", m1: "Traditional Layering: Layer rice, noodles, chicken gravy, and top with mayo/chili sauce zigzag lines.", m2: "Quick Fusion Bowl: Assemble pre-cooked rice, instant noodles, and canned chicken gravy.", m3: "Brown Rice & Yogurt Mayo: Use brown rice and yogurt-based mayo drizzle." },
+                    { id: 21, title: "Egg Fried Rice", origin: "Chinese", desc: "Classic fragrant Jasmine rice stir-fried with scrambled eggs, peas, and carrots.", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500", ing: ["Boiled Rice", "Eggs 2", "Carrots & Peas", "Soy Sauce", "Sesame Oil"], health: "Provides balanced carbohydrates and complete egg proteins.", m1: "Traditional Wok Toss: Scramble eggs in hot wok, toss cold rice with veggies and soy sauce on high flame.", m2: "5-Min Skillet Rice: Toss cooked rice and eggs together in skillet.", m3: "Brown Rice Egg White: Use brown rice and egg whites only." },
+                    { id: 22, title: "Chicken Manchurian", origin: "Chinese", desc: "Crispy chicken cubes simmered in tangy ginger-garlic soy tomato gravy.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500", ing: ["Chicken Cubes", "Tomato Ketchup", "Soy Sauce", "Garlic", "Cornstarch"], health: "Appetizing flavors that stimulate gastric acid and appetite.", m1: "Traditional Wok: Deep-fry battered chicken, simmer in ketchup-soy-garlic gravy till glossy.", m2: "Quick Skillet Manchurian: Pan-fry chicken and pour ready Manchurian sauce.", m3: "Air-Fryer Manchurian: Air-fry chicken cubes without batter and toss in light sauce." },
+                    { id: 23, title: "Alfredo Pasta", origin: "Italian", desc: "Fettuccine or penne pasta tossed in rich parmesan cream garlic sauce.", img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=500", ing: ["Pasta", "Chicken", "Heavy Cream", "Parmesan Cheese", "Garlic"], health: "High calorie comfort meal rich in calcium and dairy energy.", m1: "Traditional Toss: Boil pasta, sear chicken, stir heavy cream and parmesan until thick, toss together.", m2: "One-Pot Alfredo: Cook pasta and cream together in one pot 12 mins.", m3: "Greek Yogurt Alfredo: Substitute heavy cream with low-fat Greek yogurt." }
+                ]
+            },
+            salads: {
+                title: "Salads & Sauces",
+                icon: "fa-leaf",
+                items: [
+                    { id: 24, title: "Russian Olivier Salad", origin: "Russian", desc: "Traditional chilled potato salad with shredded chicken, boiled eggs, peas, and mayonnaise.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Boiled Potatoes", "Chicken", "Boiled Eggs", "Green Peas", "Mayonnaise"], health: "High energy and protein recovery meal rich in dietary fiber.", m1: "Traditional Chilled Mix: Dice boiled veggies and chicken evenly, fold with mayonnaise, chill 2 hours.", m2: "Quick Mayo Mix: Fold store-bought veg mix with shredded chicken and mayo.", m3: "Greek Yogurt Salad: Replace mayonnaise entirely with seasoned Greek yogurt." },
+                    { id: 25, title: "Coleslaw Salad", origin: "International", desc: "Crispy shredded cabbage and grated carrots tossed in sweet creamy dressing.", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", ing: ["Cabbage Shredded", "Carrots Grated", "Mayonnaise", "Sugar", "Vinegar"], health: "Rich in Vitamin C and raw fiber for smooth digestion.", m1: "Traditional Chill: Shred cabbage and carrots, mix with mayo, sugar, and vinegar, refrigerate.", m2: "Express Coleslaw: Mix pre-bagged slaw with bottled dressing.", m3: "Honey Yogurt Slaw: Use Greek yogurt and honey instead of sugar and mayo." },
+                    { id: 26, title: "Thousand Island Dressing", origin: "International", desc: "Creamy pink sauce made with mayonnaise, ketchup, pickles, and onions.", img: "https://images.unsplash.com/photo-1472911951475-2ec9bd6c072d?w=500", ing: ["Mayonnaise", "Tomato Ketchup", "Diced Pickles", "Onions", "Paprika"], health: "Adds delicious flavor and healthy fats to raw vegetable salads.", m1: "Traditional Whisk: Mix mayonnaise, ketchup, finely diced pickles, and onions until smooth pink.", m2: "Quick Blend: Blend ingredients in food processor 10 seconds.", m3: "Light Yogurt Dressing: Use light yogurt-based mayo." },
+                    { id: 27, title: "Green Chutney (Hariyali Sauce)", origin: "Pakistani", desc: "Fresh vibrant mint, coriander, green chili, and garlic dipping sauce.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Fresh Mint", "Coriander", "Green Chilies", "Garlic", "Lemon Juice"], health: "Detoxifies liver, aids digestion, and freshens breath with herbal enzymes.", m1: "Traditional Blend: Grind mint, coriander, green chilies, garlic, lemon juice, and salt in blender.", m2: "Mortar Pestle Crush: Crush herbs manually for rustic traditional texture.", m3: "Zero-Salt Herb Blend: Omit salt and add extra lemon juice for low sodium diets." }
+                ]
+            },
+            desserts: {
+                title: "Desserts & Beverages",
+                icon: "fa-ice-cream",
+                items: [
+                    { id: 28, title: "Kulfa Ice Cream", origin: "Pakistani", desc: "Traditional rich frozen dairy dessert cooked down with milk, khoya, and pistachios.", img: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500", ing: ["Milk 1 liter", "Khoya", "Sugar", "Cardamom Powder", "Almonds & Pistachios"], health: "Provides dense dairy calcium and sustaining calories.", m1: "Traditional Slow Boil: Simmer milk 2 hours till halved, add khoya, nuts, freeze in molds.", m2: "Express Kulfa: Mix condensed milk, heavy cream, and khoya for fast freezing.", m3: "Low-Sugar Milk Dessert: Use skimmed milk and sugar substitute." },
+                    { id: 29, title: "Three Milk Cake (Tres Leches)", origin: "International", desc: "Sponge cake soaked in three sweet milks and topped with whipped cream.", img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500", ing: ["Sponge Cake", "Condensed Milk", "Evaporated Milk", "Cream", "Vanilla"], health: "Luxurious comfort dessert rich in dairy nutrients.", m1: "Traditional Soak: Bake sponge cake, poke holes, pour three milk mixture, chill and top with whipped cream.", m2: "Store-Bought Sponge: Use ready sponge cake and pour milk soak.", m3: "Light Skimmed Milk Cake: Use skimmed condensed milk and light cream." },
+                    { id: 30, title: "Karak Chai", origin: "Pakistani", desc: "Strong, robust spiced milk tea brewed with cardamom and tea leaves.", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500", ing: ["Strong Tea Leaves", "Milk", "Cardamom", "Sugar/Honey", "Water"], health: "Boosts alertness, mental focus, and provides warm antioxidant polyphenols.", m1: "Traditional Boil: Boil water with cardamom and tea leaves, add milk and sugar, simmer and aerate till frothy.", m2: "Quick Tea Bag Brew: Steep strong tea bags in boiling milk and water.", m3: "Sugar-Free Cinnamon Chai: Omit sugar and add a pinch of cinnamon." }
+                ]
+            }
+        };
+
+        function renderSite() {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = '';
+
+            Object.keys(masterDatabase).forEach(key => {
+                const category = masterDatabase[key];
+                let cardsHtml = '';
+
+                category.items.forEach(item => {
+                    cardsHtml += `
+                        <div class="card" data-title="${item.title.toLowerCase()}" data-ing="${item.ing.join(' ').toLowerCase()}">
+                            <img src="${item.img}" class="card-img" alt="${item.title}">
+                            <div class="card-body">
+                                <span class="badge">${item.origin} Cuisine</span>
+                                <h3 class="card-title">${item.title}</h3>
+                                <p class="card-desc">${item.desc}</p>
+                                ${item.health ? `<div class="health-box"><strong><i class="fas fa-heartbeat"></i> Health:</strong> ${item.health}</div>` : ''}
+                                <button class="btn-view" onclick="openModal('${key}', ${item.id})">
+                                    <i class="fas fa-list-ol"></i> View 3 Ways To Cook
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div class="category-section" id="sec-${key}">
+                        <div class="section-header">
+                            <h2><i class="fas ${category.icon}"></i> ${category.title}</h2>
+                            <span>${category.items.length} Recipes</span>
+                        </div>
+                        <div class="recipes-grid">
+                            ${cardsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function scrollToSection(key) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if(key === 'all') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const el = document.getElementById(`sec-${key}`);
+                if(el) el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function filterRecipes() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                const ing = card.getAttribute('data-ing');
+                if(title.includes(query) || ing.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openModal(catKey, id) {
+            const item = masterDatabase[catKey].items.find(x => x.id === id);
+            const modalBody = document.getElementById('modalBody');
+
+            modalBody.innerHTML = `
+                <h2 style="color:var(--primary); margin-bottom:5px;">${item.title}</h2>
+                <span class="badge">${item.origin} Specialty</span>
+                <p style="margin:10px 0; color:#555;">${item.desc}</p>
+                
+                ${item.health ? `<div class="health-box"><strong><i class="fas fa-heartbeat"></i> Health Benefit:</strong> ${item.health}</div>` : ''}
+
+                <div style="background:#f7fafc; padding:15px; border-left:4px solid var(--primary); margin:15px 0; border-radius:4px;">
+                    <h4 style="margin-bottom:5px;"><i class="fas fa-shopping-basket"></i> Key Ingredients:</h4>
+                    <p style="font-size:0.95rem;">${item.ing.join(', ')}</p>
+                </div>
+
+                <h3 style="margin-top:20px;">3 Ways To Cook:</h3>
+                <div class="method-tabs">
+                    <button class="m-btn active" onclick="switchTab(event, 't1')">Method 1: Traditional</button>
+                    <button class="m-btn" onclick="switchTab(event, 't2')">Method 2: Express / Pressure</button>
+                    <button class="m-btn" onclick="switchTab(event, 't3')">Method 3: Healthier / Air-Fryer</button>
+                </div>
+
+                <div id="t1" class="m-content active">
+                    <p><strong>Traditional Method:</strong> ${item.m1}</p>
+                </div>
+                <div id="t2" class="m-content">
+                    <p><strong>Express / Pressure Cooker Method:</strong> ${item.m2}</p>
+                </div>
+                <div id="t3" class="m-content">
+                    <p><strong>Healthier / Air-Fryer Method:</strong> ${item.m3}</p>
+                </div>
+            `;
+
+            document.getElementById('recipeModal').style.display = 'flex';
+        }
+
+        function switchTab(evt, tabId) {
+            document.querySelectorAll('.m-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.m-content').forEach(c => c.classList.remove('active'));
+            evt.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('recipeModal').style.display = 'none';
+        }
+
+        renderSite();
+    </script>
+</body>
 </html>
