@@ -529,7 +529,580 @@
         // Initialize display
         displayRecipes(recipes);
     </script>
+</body> <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 Ways To Cook - Global Halal Master Recipes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e67e22;
+            --primary-dark: #d35400;
+            --secondary: #1a252f;
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --light-text: #7f8c8d;
+            --radius: 12px;
+            --shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* Header & Hero */
+        header {
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            color: white;
+            padding: 3rem 1rem 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem auto;
+            opacity: 0.9;
+        }
+
+        .search-bar-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-bar-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1.05rem;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .search-bar-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text);
+            font-size: 1.2rem;
+        }
+
+        /* Category Nav */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cat-btn {
+            background: #edf2f7;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Container & Sections */
+        .main-container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header span {
+            background: var(--primary);
+            color: white;
+            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+        }
+
+        /* Recipe Card */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .card-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .cuisine-badge {
+            align-self: flex-start;
+            background: #feebc8;
+            color: #742a2a;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .health-benefits-box {
+            background: #e6fffa;
+            border-left: 4px solid #319795;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #234e52;
+            margin-bottom: 15px;
+        }
+
+        .btn-cook {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-cook:hover {
+            background: var(--primary);
+        }
+
+        /* Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-body-content {
+            background: white;
+            width: 100%;
+            max-width: 850px;
+            max-height: 90vh;
+            border-radius: var(--radius);
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .method-tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0 15px 0;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tab-btn {
+            padding: 10px 18px;
+            border: none;
+            background: none;
+            font-weight: 700;
+            color: var(--light-text);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content { display: none; padding: 10px 0; }
+        .tab-content.active { display: block; }
+
+        footer {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .recipes-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>3 Ways To Cook</h1>
+        <p>The Ultimate Global Culinary Portal featuring 12+ Specialized Recipes per Main Cuisine Category!</p>
+        <div class="search-bar-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="globalSearch" placeholder="Search by recipe, cuisine, or ingredient..." onkeyup="searchSite()">
+        </div>
+    </header>
+
+    <nav class="sticky-nav">
+        <button class="cat-btn active" onclick="scrollToSection('all')"><i class="fas fa-border-all"></i> All Categories</button>
+        <button class="cat-btn" onclick="scrollToSection('biryani')"><i class="fas fa-bowl-rice"></i> Biryani (12)</button>
+        <button class="cat-btn" onclick="scrollToSection('karahi')"><i class="fas fa-fire"></i> Karahi (12)</button>
+        <button class="cat-btn" onclick="scrollToSection('korma')"><i class="fas fa-utensils"></i> Korma (12)</button>
+        <button class="cat-btn" onclick="scrollToSection('chinese')"><i class="fas fa-drumstick-bite"></i> Chinese (12)</button>
+        <button class="cat-btn" onclick="scrollToSection('pasta')"><i class="fas fa-stroopwafel"></i> Pasta & Lasagna (12)</button>
+        <button class="cat-btn" onclick="scrollToSection('salads')"><i class="fas fa-leaf"></i> Salads & Health (12)</button>
+    </nav>
+
+    <div class="main-container" id="contentArea">
+        <!-- Rendered via JavaScript -->
+    </div>
+
+    <!-- Modal Popup -->
+    <div class="modal-overlay" id="recipeModal">
+        <div class="modal-body-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalContainer"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 3 Ways To Cook. All International Halal Recipes with 3 Cooking Methods.</p>
+    </footer>
+
+    <script>
+        const database = {
+            biryani: {
+                title: "Biryani Specialities",
+                icon: "fa-bowl-rice",
+                items: [
+                    { id: 101, title: "Karachi Student Biryani", origin: "Pakistani", desc: "Spicy, savory beef biryani loaded with tangy dried plums (Aloo Bukhara) and potatoes.", img: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500", ing: ["1kg Beef with bones", "1kg Basmati Rice", "Aloo Bukhara", "Potatoes", "Biryani Spices"], m1: "Traditional Dum: Marinate beef, cook curry with fried onions, layer boiled rice, add food color, and seal for 20 mins.", m2: "Pressure Cooker Express: Cook beef gravy in 20 mins, layer parboiled rice, and dum cook on low heat for 10 mins.", m3: "Healthier Air-Fryer Twist: Use extra-lean beef, skip potato frying, and use 1 tbsp olive oil." },
+                    { id: 102, title: "Al-Rehman Special Biryani", origin: "Pakistani", desc: "Famous Karachi street biryani known for its intense red spice oil and tender beef chunks.", img: "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=500", ing: ["Beef Sirloin", "Basmati Rice", "Red Chili Flakes", "Yogurt", "Garlic Ginger"], m1: "Authentic Deg Method: Heavy spiced beef curry layered with 80% cooked rice and cooked on high flame then dum.", m2: "Instant Pot Method: Pressure cook beef masala, lay rice directly on top with broth, and cook 6 mins.", m3: "Low-Calorie Oil-Free: Substitute oil with skimmed yogurt base and lean cut meat." },
+                    { id: 103, title: "Hyderabadi Mutton Dum Biryani", origin: "Indian", desc: "Aromatic raw-marinated mutton cooked directly with rice under sealed dough.", img: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=500", ing: ["Mutton Chops", "Aged Basmati", "Raw Papaya Paste", "Fried Onions", "Saffron Milk"], m1: "Kacchi Dum: Raw mutton marinated overnight with papaya, layered under parboiled rice, sealed with dough.", m2: "Pre-cooked Mutton Express: Boil mutton in pressure cooker 80% first, then layer with rice for quick 15 min dum.", m3: "Light Oven Baked: Bake layered biryani in a Dutch oven with minimal ghee." },
+                    { id: 104, title: "Sindhi Spicy Beef Biryani", origin: "Pakistani", desc: "Traditional Sindhi recipe rich in sour yogurt, tomatoes, mint leaves, and green chilies.", img: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500", ing: ["Beef Cubes", "Basmati Rice", "Mint & Coriander", "Tomatoes", "Green Chilies"], m1: "Layered Sindhi Dum: Cook thick tomato-mint gravy, layer rice, garnish with lemon slices and mint, and dum cook.", m2: "One-Pot Skillet: Cook beef curry and rice together in one large skillet.", m3: "Lean Beef & Brown Rice: Substitute white basmati with brown basmati rice for higher fiber." },
+                    { id: 105, title: "Bombay Chicken Biryani", origin: "Indian", desc: "Sweet and spicy chicken biryani infused with fried potatoes, kewra water, and raisins.", img: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500", ing: ["Chicken", "Rice", "Potatoes", "Kewra Essence", "Golden Raisins"], m1: "Bombay Style Layering: Fry potatoes first, cook chicken gravy, layer rice sprinkled with kewra and fried onions.", m2: "Quick Pan Fry: Fry chicken and boiled potatoes in pre-made Bombay masala paste, toss with boiled rice.", m3: "Air-Fried Potato & Grilled Chicken: Air-fry potatoes and grill chicken before mixing with rice." },
+                    { id: 106, title: "White Beef Yakhni Biryani", origin: "Pakistani", desc: "Subtle and aromatic white rice biryani cooked in clear beef broth and whole spices.", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500", ing: ["Beef", "Whole Spices (Khada Masala)", "Yogurt", "Cream", "Basmati Rice"], m1: "Yakhni Extraction: Boiled beef broth simmered for 2 hours, rice cooked directly in yakhni with meat.", m2: "Pressure Yakhni: Extract beef stock in 25 mins under pressure, cook rice in stock.", m3: "Low-Fat Creamless Yakhni: Trim all beef fat and use Greek yogurt instead of cream." },
+                    { id: 107, title: "Chicken Tikka Biryani", origin: "Pakistani", desc: "Charcoal-smoked tandoori chicken tikka pieces layered in rich biryani gravy.", img: "https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=500", ing: ["Chicken Boneless", "Tikka Masala", "Charcoal Coal", "Basmati Rice", "Yogurt"], m1: "Smoke & Dum: Grill chicken tikka, smoke with charcoal coal, then layer with spicy gravy and rice.", m2: "Pan Sear Tikka: Sear chicken on stove, pour masala, toss in cooked rice.", m3: "Air-Fryer Tikka: Air-fry chicken pieces without oil before adding to mild masala rice." },
+                    { id: 108, title: "Mutton Nalli Biryani", origin: "Indian", desc: "Royal biryani cooked with melt-in-mouth mutton marrow shanks and rich spices.", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=500", ing: ["Mutton Shanks (Nalli)", "Basmati Rice", "Shahi Zeera", "Nutmeg & Mace", "Desi Ghee"], m1: "Slow-Cook Shank Dum: Simmer shanks 2 hours till tender, layer with rice and slow dum.", m2: "Pressure Shank Cooker: Cook shanks 30 mins under pressure, layer and bake.", m3: "Trimmed Shank Light Cook: Remove marrow excess fat and use olive oil spray." },
+                    { id: 109, title: "Prawn Biryani (Halal Seafood)", origin: "International", desc: "Delicious coastal style biryani with succulent spiced prawns and yellow rice.", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=500", ing: ["Jumbo Prawns", "Basmati Rice", "Turmeric & Mustard Seeds", "Coconut Milk", "Lemon"], m1: "Quick Coastal Dum: Sear prawns 3 mins, mix with coconut gravy, layer rice and dum 10 mins.", m2: "15-Min Skillet Prawn: Stir-fry prawns and boiled rice together with spices.", m3: "Steamed Prawn Light Rice: Steam prawns with ginger-lemon and toss with turmeric basmati." },
+                    { id: 110, title: "Fish Dum Biryani", origin: "Pakistani", desc: "Crispy fried firm fish fillets layered gently in fragrant spiced biryani rice.", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=500", ing: ["King Fish / Surmai", "Ajwain", "Lemon Juice", "Basmati Rice", "Brown Onions"], m1: "Gentle Fish Dum: Pan-fry marinated fish, place over cooked rice layer carefully, dum for 8 mins.", m2: "Quick Oven Bake: Bake marinated fish fillets with rice in foil tray.", m3: "Air-Fried Fish Layer: Air-fry fish fillets without oil coating before assembling." },
+                    { id: 111, title: "Mughlai Matka Biryani", origin: "Indian", desc: "Traditional clay-pot cooked biryani infused with earthy clay aroma and dry fruits.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500", ing: ["Chicken/Beef", "Clay Pot (Matka)", "Cashews & Almonds", "Kewra", "Saffron"], m1: "Clay Pot Dum: Assemble rice and meat inside a sealed Matka pot and cook over hot coals.", m2: "Stovetop Clay Pot: Cook Matka over low stove burner for 20 mins.", m3: "Nuts-Free Oven Pot: Bake in ceramic pot using skimmed milk and low ghee." },
+                    { id: 112, title: "Veg Dum Biryani", origin: "Indian", desc: "Rich vegetarian alternative loaded with paneer, carrots, beans, peas, and potatoes.", img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=500", ing: ["Paneer / Tofu", "Carrots & Peas", "Beans", "Biryani Spice", "Basmati Rice"], m1: "Full Veggie Dum: Sauté veggies and paneer in masala gravy, layer rice, and steam seal.", m2: "Instant Pot Veggie: Cook all veggies and rice together under high pressure 4 mins.", m3: "Low-Carb Cauliflower Biryani: Substitute rice with grated cauliflower rice." }
+                ]
+            },
+            karahi: {
+                title: "Karahi Specialties",
+                icon: "fa-fire",
+                items: [
+                    { id: 201, title: "Peshawari Shinwari Mutton Karahi", origin: "Pakistani", desc: "Authentic KPK Shinwari style mutton cooked only in animal fat, salt, tomatoes, and chilies.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500", ing: ["Mutton with fat", "Tomatoes", "Green Chilies", "Salt", "Ginger Julienned"], m1: "Traditional Wok Fry: Fry mutton in its own fat with salt, cover with whole tomatoes till soft, high flame fry.", m2: "Pressure Karahi: Soften mutton in pressure cooker 15 mins, finish high flame fry in wok with tomatoes.", m3: "Lean Mutton Olive Oil: Cook lean mutton using 1 tbsp olive oil instead of animal fat." },
+                    { id: 202, title: "Lahori Chicken Karahi", origin: "Pakistani", desc: "Spicy Lahori street style chicken cooked with thick tomato gravy, garlic, and red chilies.", img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500", ing: ["Chicken", "Tomatoes", "Red Chili Flakes", "Yogurt", "Coriander Seeds"], m1: "Lahori Street Wok: Fry chicken in oil, add crushed spices and tomatoes, bhunno on high heat until oil separates.", m2: "Quick 20-Min Pan: Cook chicken covered with tomato puree and pre-ground spices.", m3: "Air-Fryer Karahi: Air-fry spiced chicken chunks, toss into a light fresh tomato paste sauce." },
+                    { id: 203, title: "Balochi Sajji Karahi", origin: "Pakistani", desc: "Dry, roasted chicken karahi flavored with Balochi sajji masala and lemon juice.", img: "https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=500", ing: ["Whole Chicken cuts", "Black Pepper", "Dry Mango Powder", "Lemon Juice", "Garlic"], m1: "Dry Roasted Wok: Fry chicken golden brown, toss with dry crushed spices and lemon juice without gravy.", m2: "Quick Skillet Roast: Pan-fry spiced chicken pieces in skillet 15 mins.", m3: "Oil-Free Air Fryer: Air-fry chicken till crispy dry, sprinkle with Sajji spice mix." },
+                    { id: 204, title: "White Makhni Chicken Karahi", origin: "Pakistani", desc: "Creamy, mild white chicken karahi made with heavy cream, white pepper, and yogurt.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500", ing: ["Chicken Boneless", "Heavy Cream", "Yogurt", "White Pepper", "Green Chilies"], m1: "Creamy Wok Cook: Sauté chicken with garlic, stir yogurt and white pepper, finish with heavy cream and butter.", m2: "Quick Skillet: Cook chicken in cream sauce for 12 mins.", m3: "Greek Yogurt Light Karahi: Replace heavy cream with low-fat Greek yogurt." },
+                    { id: 205, title: "Charsi Beef Karahi", origin: "Pakistani", desc: "Peshawar Namak Mandi style beef karahi made with fresh tomatoes and black pepper.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500", ing: ["Beef cubes", "Tomatoes", "Salt", "Crushed Black Pepper", "Green Chilies"], m1: "Namak Mandi Wok: Fry beef in fat till tender, mash whole tomatoes into thick pulp, season with black pepper.", m2: "Pressure Tender Karahi: Cook beef tender in pressure cooker first, flash fry in wok.", m3: "Lean Beef Olive Oil: Cook lean beef in olive oil with minimal salt." },
+                    { id: 206, title: "Highway Mutton Black Pepper Karahi", origin: "Pakistani", desc: "Dhaba style black pepper mutton karahi served hot on Pakistani highways.", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=500", ing: ["Mutton", "Crushed Black Pepper", "Yogurt", "Ginger", "Green Chilies"], m1: "High Flame Bhunno: Sauté mutton in ginger paste, add yogurt and thick black pepper, stir-fry dry.", m2: "Pressure Express: Pressure cook mutton 18 mins, reduce liquid on high flame.", m3: "Fat-Trimmed Pepper Cook: Trim all mutton fat, use light olive oil." },
+                    { id: 207, title: "Hyderabadi Green Chicken Karahi", origin: "Indian", desc: "Herbal green karahi made with pureed coriander, mint, spinach, and green chilies.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500", ing: ["Chicken", "Fresh Mint", "Fresh Coriander", "Green Chilies", "Yogurt"], m1: "Green Herbal Wok: Blend mint coriander paste, fry chicken, stir paste with yogurt till fragrant.", m2: "Quick 15-Min Skillet: Pan cook chicken with store-bought green curry paste.", m3: "Steamed Green Chicken: Steam chicken in green herb marinade." },
+                    { id: 208, title: "Prawn Karahi", origin: "International", desc: "Fast coastal seafood wok dish with fresh prawns cooked in spicy tomato sauce.", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=500", ing: ["Prawns", "Tomatoes", "Garlic", "Crushed Red Pepper", "Coriander"], m1: "Flash Wok Fry: Sauté garlic, toss prawns 3 mins, add tomato pulp and green chilies, stir on high flame.", m2: "One-Skillet Express: Cook all together in skillet for 8 mins.", m3: "Air-Fried Prawn Karahi: Air-fry spiced prawns, toss into pan-cooked sauce." },
+                    { id: 209, title: "Paneer Butter Karahi", origin: "Indian", desc: "Cottage cheese cubes stir-fried in rich tomato gravy and butter.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500", ing: ["Paneer Cubes", "Butter", "Tomatoes", "Kasuri Methi", "Cream"], m1: "Wok Paneer Fry: Fry paneer golden, simmer tomato butter gravy, toss paneer with kasuri methi.", m2: "10-Min Skillet: Sauté paneer and tomato sauce directly in pan.", m3: "Tofu Air-Fryer Karahi: Air-fry tofu cubes and simmer in low-fat tomato broth." },
+                    { id: 210, title: "Fish Karahi", origin: "Pakistani", desc: "Boneless fish cubes cooked gently with garlic, tomatoes, and cumin.", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=500", ing: ["Boneless Fish", "Garlic", "Tomatoes", "Cumin Seeds", "Lemon"], m1: "Gentle Wok Toss: Fry garlic, simmer tomato base, gently add fish cubes without stirring vigorously.", m2: "Pan Sear Karahi: Pan sear fish first, pour tomato sauce over top.", m3: "Baked Fish Karahi: Bake fish in foil with fresh tomato ginger salsa." },
+                    { id: 211, title: "Chicken Handi Karahi", origin: "Pakistani", desc: "Boneless chicken karahi cooked in clay handi pot with butter and cream.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500", ing: ["Chicken Boneless", "Butter", "Tomatoes", "Cream", "Ginger"], m1: "Clay Handi Slow Cook: Cook boneless chicken cubes in clay pot with tomato sauce and cream.", m2: "Quick Pan Handi: Sauté chicken cubes in skillet 12 mins.", m3: "Low-Fat Clay Pot: Use skimmed milk and low ghee in clay pot." },
+                    { id: 212, title: "Kabab Karahi", origin: "Pakistani", desc: "Grilled seekh kababs sliced and tossed into a spicy tomato gravy karahi.", img: "https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=500", ing: ["Beef Seekh Kababs", "Tomatoes", "Ginger", "Green Chilies", "Butter"], m1: "Kabab Toss Wok: Slice cooked seekh kababs, toss into high flame fried tomato ginger sauce.", m2: "Frozen Kabab Express: Air-fry frozen kababs, toss in quick skillet sauce.", m3: "Baked Kabab Light Gravy: Bake homemade lean beef kababs, mix with light tomato broth." }
+                ]
+            },
+            korma: {
+                title: "Korma Collection",
+                icon: "fa-utensils",
+                items: [
+                    { id: 301, title: "Shahi Degi Mutton Korma", origin: "Pakistani", desc: "Royal wedding-style mutton korma with dark fried onion paste, yogurt, and kewra water.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500", ing: ["Mutton", "Fried Onions (Crushed)", "Yogurt", "Nutmeg & Mace", "Kewra"], m1: "Degi Style Slow Cook: Sauté mutton in spices, add yogurt & crushed fried onion paste, simmer till gravy forms grains.", m2: "Pressure Cooker Korma: Pressure cook mutton 20 mins, stir fried onion paste to thicken instantly.", m3: "Light Baked Korma: Use baked onions and low-fat yogurt." },
+                    { id: 302, title: "White Chicken Korma", origin: "Pakistani", desc: "Creamy white gravy chicken korma made with cashew paste, poppy seeds, and almond milk.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500", ing: ["Chicken", "Cashew Paste", "Yogurt", "White Pepper", "Almond Flakes"], m1: "Royal White Simmer: Sauté chicken, add cashew paste and yogurt, simmer over low heat till velvety soft.", m2: "Quick 20-Min Pan: Cook chicken with pre-made white korma paste.", m3: "Skimmed Milk & Tofu Cream: Replace cashews with skimmed milk and blended tofu." },
+                    { id: 303, title: "Mughlai Beef Korma", origin: "Indian", desc: "Rich Mughlai era beef korma cooked with dry fruits, saffron, and whole spices.", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=500", ing: ["Beef Sirloin", "Saffron", "Almonds", "Yogurt", "Ghee"], m1: "Slow Mughlai Pot: Braise beef in ghee, add saffron almond paste, simmer 1.5 hours.", m2: "Pressure Braised: Pressure cook beef 25 mins, stir almond paste.", m3: "Lean Beef Olive Oil: Cook lean beef in olive oil with almond milk." },
+                    { id: 304, title: "Delhi Style Chicken Korma", origin: "Indian", desc: "Aromatic Delhi street korma with dark brown gravy and whole cardamom fragrance.", img: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500", ing: ["Chicken", "Cardamom & Cloves", "Brown Onion Paste", "Yogurt", "Ginger"], m1: "Delhi Pot Cook: Fry cardamom in ghee, add chicken, brown onion yogurt paste, bhunno till fragrant.", m2: "Quick One-Pot: Pan fry chicken with pre-ground Delhi spices 15 mins.", m3: "Oil-Free Yogurt Braise: Braise chicken in yogurt without frying in ghee." },
+                    { id: 305, title: "Navratan Korma (Veg Royal)", origin: "Indian", desc: "Nine-gem royal vegetarian korma loaded with veggies, fruits, nuts, and paneer.", img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=500", ing: ["Mixed Veggies", "Paneer", "Pineapple", "Cashew Cream", "Raisins"], m1: "9-Gem Slow Cook: Sauté veggies and paneer, simmer in cashew pineapple cream sauce.", m2: "Instant Pot Veg: Cook veggies 3 mins in pressure cooker, stir cream.", m3: "Vegan Coconut Korma: Use coconut cream instead of dairy." },
+                    { id: 306, title: "Hyderabadi Dum Ka Mutton Korma", origin: "Indian", desc: "Slow sealed-pot dum cooked mutton korma with roasted coconut and sesame paste.", img: "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=500", ing: ["Mutton", "Roasted Coconut", "Sesame Seeds", "Yogurt", "Mint"], m1: "Dough Sealed Dum: Marinate mutton with coconut sesame paste, seal pot with dough, simmer 2 hours.", m2: "Pressure Dum: Cook mutton 20 mins, finish seal steam for 10 mins.", m3: "Lean Mutton Light Paste: Reduce coconut amount and use light yogurt." },
+                    { id: 307, title: "Persian Lamb Korma", origin: "International", desc: "Mild, fragrant lamb korma seasoned with dried lime, saffron, and plums.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500", ing: ["Lamb Shanks", "Dried Lime (Loomi)", "Saffron", "Prunes", "Onions"], m1: "Persian Stew: Slow braise lamb shanks with loomi and saffron for 2 hours.", m2: "Pressure Shank: Cook lamb 25 mins under pressure with loomi.", m3: "Fat-Trimmed Lamb Bake: Trim lamb fat and bake slow in Dutch oven." },
+                    { id: 308, title: "Kashmiri Gushtaba Korma", origin: "Indian", desc: "Silky Kashmiri yogurt-based korma with soft pounded mutton meatballs.", img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=500", ing: ["Pounded Mutton", "Whisked Yogurt", "Fennel Powder", "Dry Ginger", "Mustard Oil"], m1: "Traditional Whisked Simmer: Pounded mutton meatballs simmered slowly in whisked yogurt stock.", m2: "Quick Meatball Korma: Use food processor minced mutton meatballs, cook in yogurt 15 mins.", m3: "Lean Turkey/Beef Balls: Substitute lamb with lean turkey or beef." },
+                    { id: 309, title: "Turkish Chicken Korma (Kavurma)", origin: "International", desc: "Middle Eastern style braised chicken with garlic, oregano, and olive oil sauce.", img: "https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?w=500", ing: ["Chicken Thighs", "Garlic", "Oregano", "Olive Oil", "Lemon"], m1: "Olive Oil Braise: Slow cook chicken cuts with whole garlic cloves and oregano in olive oil.", m2: "Skillet Kavurma: High flame fry chicken breast cubes in olive oil 10 mins.", m3: "Air-Fryer Turkish Roast: Air-fry marinated chicken with lemon and herbs." },
+                    { id: 310, title: "Beef Pasanday Korma", origin: "Pakistani", desc: "Flattened beef steak strips slow-cooked in spiced yogurt and fried onion gravy.", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500", ing: ["Beef Pasanday (Stripped)", "Yogurt", "Papaya Paste", "Fried Onions", "Garam Masala"], m1: "Marinated Slow Simmer: Marinate flattened beef strips in papaya and yogurt, simmer till tender.", m2: "Quick Pan Pasanday: Pan fry marinated strips in skillet for 15 mins.", m3: "Grilled Beef Pasanday: Grill marinated beef strips, toss into light yogurt sauce." },
+                    { id: 311, title: "Fish Korma", origin: "International", desc: "Delicate fish fillets simmered gently in coconut milk and mild yellow korma spices.", img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=500", ing: ["Fish Fillets", "Coconut Milk", "Turmeric", "Curry Leaves", "Garlic"], m1: "Gentle Coconut Simmer: Sear garlic and curry leaves, add coconut milk, gently simmer fish 8 mins.", m2: "10-Min Skillet Fish: Pan sear fish with coconut curry paste.", m3: "Baked Coconut Fish: Bake fish fillets in parchment paper with coconut sauce." },
+                    { id: 312, title: "Egg Korma (Boiled Egg Curry)", origin: "Pakistani", desc: "Hard-boiled eggs simmered in rich spiced onion-yogurt korma gravy.", img: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500", ing: ["Boiled Eggs", "Yogurt", "Fried Onions", "Garlic & Ginger", "Coriander"], m1: "Golden Egg Korma: Fry boiled eggs golden, simmer in rich korma gravy.", m2: "10-Min Skillet Egg: Toss boiled eggs directly in pre-made korma sauce.", m3: "Air-Fried Egg Korma: Air-fry hard boiled eggs without oil, toss in light yogurt gravy." }
+                ]
+            },
+            chinese: {
+                title: "Chinese (Halal) Delights",
+                icon: "fa-drumstick-bite",
+                items: [
+                    { id: 401, title: "Beef Chilli Dry", origin: "Chinese", desc: "Crispy beef strips toss-fried with sliced green chilies and garlic in dark soy sauce.", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500", ing: ["Beef Strips", "Green Chilies", "Garlic", "Dark Soy Sauce", "Cornstarch"], m1: "Classic Wok Sear: Deep fry cornstarch-coated beef strips till crispy, flash toss with green chilies & soy sauce.", m2: "Quick Skillet Fry: Pan fry beef strips 8 mins, add chilies and soy sauce.", m3: "Air-Fryer Crispy Beef: Air-fry beef strips without deep frying, toss in light soy garlic glaze." },
+                    { id: 402, title: "Chicken Chilli Dry", origin: "Chinese", desc: "Popular sliced chicken breast wok-fried with long green chilies, ginger, and sesame.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500", ing: ["Chicken Strips", "Green Chilies", "Ginger Julienned", "Soy Sauce", "Sesame Seeds"], m1: "Wok Flash Fry: Sauté ginger and chilies, toss crispy fried chicken strips, glaze with dark sauce.", m2: "10-Min Pan Stir Fry: Stir-fry chicken breast cubes in wok with chilies.", m3: "Air-Fryer Chicken Dry: Air-fry chicken breast strips, coat in low-sodium soy sauce." },
+                    { id: 403, title: "Halal Egg Fried Rice", origin: "Chinese", desc: "Classic fragrant Jasmine rice stir-fried with eggs, green onions, and soy sauce.", img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500", ing: ["Cold Rice", "Eggs", "Green Onions", "Soy Sauce", "Sesame Oil"], m1: "High Flame Wok Toss: Scramble eggs in hot wok, add cold day-old rice, toss with soy sauce and green onions.", m2: "Skillet 5-Min Rice: Toss cooked rice and scrambled eggs in skillet.", m3: "Brown Rice Egg Toss: Use fiber-rich brown rice and egg whites." },
+                    { id: 404, title: "Chinese Garlic Fried Rice", origin: "Chinese", desc: "Aromatic rice cooked with abundant golden fried minced garlic and butter.", img: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=500", ing: ["Cooked Rice", "Garlic Minced", "Butter", "Spring Onions", "White Pepper"], m1: "Golden Garlic Wok: Fry garlic golden brown in butter, toss cold rice with white pepper.", m2: "Quick Pan Garlic Toss: Sauté minced garlic in butter and mix with rice.", m3: "Olive Oil Garlic Rice: Sauté garlic in olive oil using brown rice." },
+                    { id: 405, title: "Halal Kung Pao Chicken", origin: "Chinese", desc: "Szechuan style stir-fried chicken cubes with peanuts, bell peppers, and red chilies.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500", ing: ["Chicken Cubes", "Roasted Peanuts", "Dried Red Chilies", "Soy Sauce", "Szechuan Pepper"], m1: "Szechuan Wok: Fry peanuts, brown chicken in sesame oil, toss chilies, stir in soy-cornstarch glaze.", m2: "15-Min Skillet: Sauté chicken cubes, pour pre-mixed Kung Pao sauce, add peanuts.", m3: "Air-Fryer Kung Pao: Air-fry chicken cubes without batter, toss in light sauce." },
+                    { id: 406, title: "Beef Manchurian", origin: "Chinese", desc: "Tender beef meatballs coated in tangy ginger-garlic Manchurian gravy.", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500", ing: ["Minced Beef Balls", "Garlic & Ginger", "Soy Sauce", "Chili Sauce", "Spring Onions"], m1: "Wok Manchurian: Deep fry beef balls, simmer in garlic-chili soy sauce glaze.", m2: "Pan-Fried Manchurian: Pan fry meatballs, pour quick gravy.", m3: "Air-Fried Beef Manchurian: Air-fry lean beef balls, coat with low-sugar gravy." },
+                    { id: 407, title: "Chicken Chow Mein", origin: "Chinese", desc: "Stir-fried noodles loaded with shredded chicken, cabbage, carrots, and soy sauce.", img: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500", ing: ["Egg Noodles", "Chicken Shredded", "Cabbage & Carrots", "Soy Sauce", "Oyster Sauce"], m1: "High Flame Noodle Toss: Sear chicken, toss veggies and boiled noodles in hot wok with soy sauce.", m2: "10-Min One Pan Noodle: Cook noodles and toss pre-cooked chicken.", m3: "Zucchini Noodle Chow Mein: Replace flour noodles with zucchini noodles (zoodles)." },
+                    { id: 408, title: "Sweet & Sour Chicken", origin: "Chinese", desc: "Crispy chicken breast cubes served in vibrant pineapple sweet and sour glaze.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500", ing: ["Chicken Breast", "Pineapple Chunks", "Bell Peppers", "Ketchup & Vinegar", "Sugar"], m1: "Crispy Wok Toss: Deep fry battered chicken, toss with bell peppers and pineapple sauce glaze.", m2: "Skillet Sweet & Sour: Pan sear chicken cubes, pour store-bought sauce.", m3: "Air-Fryer Unbattered Chicken: Air-fry chicken breast, toss in honey-lemon light sauce." },
+                    { id: 409, title: "Szechuan Spicy Beef", origin: "Chinese", desc: "Fiery beef stir-fry cooked with bell peppers, onions, and spicy Szechuan sauce.", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500", ing: ["Beef Strips", "Szechuan Sauce", "Bell Peppers", "Garlic", "Cornstarch"], m1: "Szechuan Wok Flash: Sear beef over high heat, toss bell peppers and spicy chili sauce.", m2: "Quick 10-Min Skillet: Sauté beef strips and veggies in one skillet.", m3: "Boiled Poached Szechuan Beef: Poach thin beef slices in spiced broth." },
+                    { id: 4010, title: "Chicken Black Pepper Sauce", origin: "Chinese", desc: "Tender chicken slices wok-fried with coarse crushed black pepper and onions.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500", ing: ["Chicken Sliced", "Crushed Black Pepper", "Onions", "Soy Sauce", "Butter"], m1: "Wok Pepper Toss: Sauté onions and chicken, pour black pepper soy sauce reduction.", m2: "Pan Sear Pepper Chicken: Sear chicken in skillet 10 mins.", m3: "Grilled Pepper Chicken: Grill marinated chicken breast, serve with light black pepper glaze." },
+                    { id: 4011, title: "Halal Hot & Sour Soup", origin: "Chinese", desc: "Classic spicy and tangy Chinese soup filled with chicken, mushrooms, and egg drops.", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500", ing: ["Chicken Shredded", "Mushrooms", "Eggs", "Vinegar & Chili Sauce", "Cornstarch"], m1: "Simmer & Ribbons: Boil chicken broth with mushrooms, add vinegar & chili, swirl egg drops.", m2: "10-Min Express Soup: Use pre-made chicken stock and canned mushrooms.", m3: "Clear Low-Starch Soup: Reduce cornstarch and use extra egg white." },
+                    { id: 4012, title: "Crispy Sesame Chicken", origin: "Chinese", desc: "Bite-sized chicken nuggets tossed in sweet honey soy glaze topped with toasted sesame.", img: "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500", ing: ["Chicken Cubes", "Honey", "Soy Sauce", "Toasted Sesame", "Garlic"], m1: "Honey Sesame Wok: Deep fry battered chicken, glaze in honey-soy reduction, coat with sesame.", m2: "Skillet Sesame Toss: Pan sear chicken cubes in honey soy sauce.", m3: "Air-Fryer Sesame Chicken: Air-fry chicken nuggets without batter, coat with light honey." }
+                ]
+            },
+            pasta: {
+                title: "Pasta & Lasagna",
+                icon: "fa-stroopwafel",
+                items: [
+                    { id: 501, title: "Classic Creamy Beef Lasagna", origin: "Italian", desc: "Layered lasagna sheets baked with rich minced beef Bolognese, Bechamel white sauce, and mozzarella.", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500", ing: ["Lasagna Sheets", "Minced Beef", "Tomato Sauce", "Bechamel Sauce", "Mozzarella Cheese"], m1: "Traditional Oven Bake: Cook Bolognese beef sauce, layer lasagna sheets, Bechamel, cheese, bake 40 mins.", m2: "Skillet Lasagna: Cook broken lasagna sheets directly with beef and sauce in a skillet on stovetop.", m3: "Low-Carb Eggplant Lasagna: Substitute flour lasagna sheets with sliced roasted eggplant." },
+                    { id: 502, title: "Chicken Alfredo Penne Pasta", origin: "Italian", desc: "Penne pasta tossed in rich parmesan cream sauce with grilled chicken breast slices.", img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=500", ing: ["Penne Pasta", "Chicken Breast", "Heavy Cream", "Parmesan Cheese", "Garlic & Butter"], m1: "Stovetop Alfredo: Sear garlic chicken, boil pasta, stir cream and parmesan until thick, toss together.", m2: "One-Pot Alfredo: Cook pasta, chicken, and cream together in one pot 12 mins.", m3: "Greek Yogurt Alfredo: Substitute heavy cream with Greek yogurt and low-fat milk." },
+                    { id: 503, title: "Spaghetti Bolognese", origin: "Italian", desc: "Classic Italian spaghetti topped with slow-simmered beef, garlic, and tomato ragu sauce.", img: "https://images.unsplash.com/photo-1621996346565-e3def6164286?w=500", ing: ["Spaghetti", "Minced Beef", "Crushed Tomatoes", "Garlic & Herbs", "Parmesan"], m1: "Slow Ragu Simmer: Simmer beef ragu sauce 1 hour, boil spaghetti al dente, toss together.", m2: "Instant Pot Bolognese: Cook minced beef, tomatoes, and dry spaghetti under pressure 8 mins.", m3: "Zucchini Spaghetti: Toss beef ragu over spiralized raw zucchini noodles." },
+                    { id: 504, title: "Creamy Chicken Macaroni Cheese", origin: "International", desc: "Ultimate comfort food made with elbow macaroni, cheddar cheese, and chicken cubes.", img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=500", ing: ["Elbow Macaroni", "Chicken Cubes", "Cheddar & Mozzarella", "Milk & Butter", "Breadcrumbs"], m1: "Baked Mac & Cheese: Boil macaroni, mix with chicken cheese sauce, top with breadcrumbs, bake golden.", m2: "Stovetop 10-Min Mac: Cook macaroni in milk and cheddar directly on stove.", m3: "Cauliflower Mac & Cheese: Replace macaroni noodles with steamed cauliflower florets." },
+                    { id: 505, title: "Penne Arrabbiata (Spicy Tomato)", origin: "Italian", desc: "Fiery Italian pasta cooked in spicy garlic tomato sauce with red chili flakes.", img: "https://images.unsplash.com/photo-1621996346565-e3def6164286?w=500", ing: ["Penne Pasta", "Crushed Tomatoes", "Garlic Minced", "Red Chili Flakes", "Olive Oil"], m1: "Classic Arrabbiata: Sauté garlic and red chili flakes in olive oil, simmer tomatoes, toss penne.", m2: "10-Min Skillet: Pan cook pasta in arrabbiata sauce.", m3: "Whole Wheat Penne Light: Use 100% whole wheat penne pasta." },
+                    { id: 506, title: "Pesto Chicken Fettuccine", origin: "Italian", desc: "Fettuccine pasta coated in vibrant basil pesto, olive oil, pine nuts, and grilled chicken.", img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=500", ing: ["Fettuccine Pasta", "Chicken Breast", "Basil Pesto Sauce", "Pine Nuts", "Parmesan"], m1: "Fresh Pesto Toss: Grill chicken breast, boil fettuccine, toss with fresh basil pesto and parmesan.", m2: "Quick Store-Bought Pesto: Toss boiled pasta with canned pesto sauce.", m3: "Nut-Free Avocado Pesto: Blend fresh basil with avocado instead of pine nuts and oil." },
+                    { id: 507, title: "Beef Stuffed Pasta Shells", origin: "Italian", desc: "Jumbo pasta shells stuffed with seasoned minced beef, ricotta cheese, and marinara.", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500", ing: ["Jumbo Pasta Shells", "Minced Beef", "Ricotta Cheese", "Marinara Sauce", "Mozzarella"], m1: "Baked Stuffed Shells: Boil shells, stuff with beef ricotta mix, lay on marinara, bake 30 mins.", m2: "Skillet Stuffed Shells: Cook stuffed shells in skillet covered with lid 15 mins.", m3: "Low-Fat Cottage Cheese Shells: Substitute ricotta with low-fat cottage cheese." },
+                    { id: 508, title: "Chicken Carbonara (Halal Beef Bacon)", origin: "Italian", desc: "Rich pasta tossed with eggs, parmesan, grilled chicken, and crispy halal beef bacon.", img: "https://images.unsplash.com/photo-1621996346565-e3def6164286?w=500", ing: ["Spaghetti", "Halal Beef Bacon", "Eggs", "Parmesan Cheese", "Black Pepper"], m1: "Egg Glaze Carbonara: Fry beef bacon crisp, toss hot spaghetti off heat with egg-parmesan mixture.", m2: "Pan Carbonara: Quick pan toss of cooked spaghetti with cream and beef bacon.", m3: "Turkey Bacon Carbonara: Use lean turkey bacon strips." },
+                    { id: 509, title: "Creamy Mushroom Spaghetti", origin: "International", desc: "Earthly sliced cremini mushrooms cooked in rich garlic cream pasta sauce.", img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=500", ing: ["Spaghetti", "Sliced Mushrooms", "Garlic", "Heavy Cream", "Thyme"], m1: "Sauté Mushroom Simmer: Sauté mushrooms in garlic butter, add cream and thyme, toss cooked spaghetti.", m2: "10-Min Skillet Toss: Pan fry mushrooms and spaghetti.", m3: "Oat Milk Mushroom Pasta: Replace heavy cream with unsweetened oat milk." },
+                    { id: 5010, title: "Seafood Prawn Linguine", origin: "International", desc: "Linguine pasta tossed with juicy prawns, lemon juice, garlic, and parsley in white sauce.", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?w=500", ing: ["Linguine Pasta", "Jumbo Prawns", "Garlic & Butter", "Lemon Juice", "Parsley"], m1: "Garlic Butter Pan Toss: Sauté prawns 3 mins in garlic butter, add lemon juice, toss cooked linguine.", m2: "Quick 8-Min Skillet: Pan fry prawns and toss pre-boiled pasta.", m3: "Olive Oil & Garlic Base: Eliminate butter and toss prawns in extra virgin olive oil." },
+                    { id: 111, title: "Baked Pasta Ziti", origin: "Italian", desc: "Comforting baked ziti pasta baked with beef marinara sauce and melted mozzarella crust.", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500", ing: ["Ziti Pasta", "Minced Beef", "Marinara Sauce", "Mozzarella", "Parmesan"], m1: "Oven Baked Ziti: Mix cooked ziti with beef marinara, layer with mozzarella, bake till bubbly.", m2: "Stovetop Cheese Ziti: Melt mozzarella over skillet ziti covered with lid.", m3: "Whole Grain Ziti Light: Use whole grain ziti and skimmed mozzarella." },
+                    { id: 512, title: "Chicken Primavera Pasta", origin: "Italian", desc: "Colorful pasta loaded with fresh garden vegetables, grilled chicken, and olive oil.", img: "https://images.unsplash.com/photo-1621996346565-e3def6164286?w=500", ing: ["Penne Pasta", "Chicken Breast", "Broccoli & Bell Peppers", "Cherry Tomatoes", "Olive Oil"], m1: "Garden Stir-Fry Toss: Sauté chicken and fresh veggies in olive oil, toss with boiled penne.", m2: "10-Min Express Skillet: Cook all veggies and chicken in skillet.", m3: "Air-Fried Veggie Primavera: Air-fry broccoli and peppers before tossing with pasta." }
+                ]
+            },
+            salads: {
+                title: "Salads & Health Benefits",
+                icon: "fa-leaf",
+                items: [
+                    { id: 601, title: "Classic Russian Olivier Salad", origin: "Russian", desc: "Traditional chilled Russian potato salad with shredded chicken, boiled eggs, peas, and pickles.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Boiled Potatoes", "Boiled Carrots", "Chicken Shredded", "Boiled Eggs", "Mayonnaise"], health: "High Energy & Protein: Excellent recovery meal packed with complex carbs, chicken protein, and dietary fiber.", m1: "Classic Chilled Dice: Dice boiled veggies and chicken into tiny cubes, fold gently with mayo, chill 2 hours.", m2: "Quick Mayo Mix: Fold store-bought boiled veg mix with shredded chicken and mayonnaise.", m3: "Greek Yogurt Low-Cal: Replace mayonnaise entirely with seasoned Greek yogurt and lemon juice." },
+                    { id: 602, title: "Pakistani Kachumber Salad", origin: "Pakistani", desc: "Crispy fresh chopped salad with onions, tomatoes, cucumbers, green chilies, and lemon juice.", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", ing: ["Onions Diced", "Tomatoes Diced", "Cucumbers Diced", "Green Chilies", "Lemon Juice"], health: "Digestive Booster & Hydration: Raw enzymes from onions and cucumbers improve gut health and reduce fat absorption.", m1: "Fresh Hand Chop: Finely dice all fresh vegetables, toss with sea salt, black pepper, and freshly squeezed lemon.", m2: "Food Processor Chop: Pulse vegetables 3 seconds in processor for ultra-fast prep.", m3: "Zero-Salt Hydration Toss: Omit salt for hypertension patients, add fresh mint leaves." },
+                    { id: 603, title: "Indian Spiced Chickpea (Chana) Salad", origin: "Indian", desc: "High-protein salad with boiled chickpeas, tangy chaat masala, onions, and pomegranate seeds.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Boiled Chickpeas", "Chaat Masala", "Pomegranate Seeds", "Onions & Tomatoes", "Lemon"], health: "Weight Loss & Diabetes Friendly: Rich in plant protein and soluble fiber that regulates blood sugar levels.", m1: "Tangy Cold Toss: Mix boiled chickpeas with diced onions, tomatoes, chaat masala, lemon, and pomegranate.", m2: "Warm Skillet Chana: Sauté chickpeas 2 mins with spices, mix with raw veggies.", m3: "Oil-Free High Fiber Bowl: Add sprouted chickpeas for extra enzyme activity." },
+                    { id: 604, title: "Mediterranean Greek Feta Salad", origin: "International", desc: "Refreshing crisp cucumbers, ripe tomatoes, kalamata olives, red onions, and feta cheese.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Cucumbers", "Tomatoes", "Kalamata Olives", "Feta Cheese Block", "Extra Virgin Olive Oil"], health: "Heart Health & Omega-3: Rich in healthy monounsaturated fats from olive oil that lower bad cholesterol (LDL).", m1: "Traditional Block Style: Slice veggies thick, lay full feta cheese block on top, drizzle olive oil and oregano.", m2: "Quick Toss: Dice all ingredients and toss with bottled Greek dressing.", m3: "Low-Sodium Light Feta: Use low-fat, low-sodium feta cheese." },
+                    { id: 605, title: "Grilled Chicken Caesar Salad", origin: "International", desc: "Crisp Romaine lettuce topped with warm grilled chicken breast, croutons, and parmesan dressing.", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", ing: ["Romaine Lettuce", "Grilled Chicken Breast", "Garlic Croutons", "Parmesan Shavings", "Caesar Dressing"], health: "Muscle Building & Low Carb: Ideal keto-friendly meal providing lean protein for muscle repair without heavy carbs.", m1: "Char-Grilled Caesar: Grill marinated chicken breast, slice over chopped lettuce, toss with dressing and croutons.", m2: "Pan-Seared Skillet Chicken: Pan fry chicken 8 mins, chop over store-bought lettuce mix.", m3: "Air-Fried Chicken & Baked Croutons: Air-fry chicken and bake croutons without oil." },
+                    { id: 606, title: "Russian Beetroot & Walnut Salad (Vinaigrette)", origin: "Russian", desc: "Vibrant red salad made with boiled beetroots, potatoes, sauerkraut pickles, and walnuts.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Boiled Beetroots", "Boiled Potatoes", "Sauerkraut / Pickles", "Walnuts", "Sunflower Oil"], health: "Blood Pressure & Detox: Beetroot nitrates improve blood circulation, lower blood pressure, and detox liver.", m1: "Dice & Marinate: Dice beetroots, coat with oil first to lock color, fold with potatoes, pickles, and crushed walnuts.", m2: "Pre-Boiled Beet Express: Mix canned boiled beetroots with pickles.", m3: "Zero-Oil Lemon Beetroot: Replace sunflower oil with fresh lemon juice." },
+                    { id: 607, title: "Asian Sesame Chicken Cabbage Salad", origin: "Chinese", desc: "Shredded purple cabbage, carrots, and poached chicken tossed in toasted sesame ginger dressing.", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", ing: ["Purple & Green Cabbage", "Poached Chicken", "Carrots", "Sesame Oil & Ginger", "Toasted Sesame"], health: "Immunity & Antioxidants: Packed with Vitamin C and anthocyanins from red cabbage to fight inflammation.", m1: "Crunchy Shred Toss: Shred cabbage finely, toss with shredded chicken and freshly whisked ginger sesame oil.", m2: "Quick Coleslaw Mix: Toss store-bought slaw mix with sesame dressing.", m3: "Steamed Warm Cabbage Bowl: Lightly steam cabbage before tossing for easier digestion." },
+                    { id: 608, title: "Arabic Fattoush Salad", origin: "International", desc: "Crisp Middle Eastern salad topped with toasted pita chips, sumac spice, and pomegranate molasses.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Crispy Pita Chips", "Radish Slices", "Cucumbers & Tomatoes", "Sumac Powder", "Pomegranate Molasses"], health: "Gut Friendly & Anti-Aging: Sumac is a powerful antioxidant that aids digestion and reduces tissue damage.", m1: "Sumac Toss: Mix crisp chopped veggies with olive oil, sumac, pomegranate molasses, and crushed toasted pita.", m2: "Quick Air-Fried Pita: Air-fry pita bread 3 mins, mix with veggies.", m3: "Gluten-Free Seed Topping: Replace pita chips with toasted pumpkin seeds." },
+                    { id: 609, title: "Creamy Pineapple Fruit Pasta Salad", origin: "Pakistani", desc: "Sweet cold salad featuring boiled pasta, pineapple chunks, apples, grapes, and light fresh cream.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Boiled Elbow Pasta", "Pineapple Chunks", "Diced Apples", "Seedless Grapes", "Fresh Cream & Mayo"], health: "Immune Boost & Digestion: Pineapple bromelain enzyme breaks down proteins and aids stomach digestion.", m1: "Cold Cream Mix: Chill boiled pasta, fold with pineapple, apples, grapes, light cream, and white pepper.", m2: "10-Min Fruit Toss: Mix canned fruit cocktail with boiled pasta and mayo.", m3: "Honey Greek Yogurt Fruit Salad: Substitute cream and mayo with honey Greek yogurt." },
+                    { id: 610, title: "Avocado Black Bean Mexican Salad", origin: "International", desc: "Nutritious Mexican salad loaded with sliced ripe avocado, black beans, corn, and lime cilantro.", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", ing: ["Ripe Avocado", "Black Beans", "Sweet Corn", "Cherry Tomatoes", "Lime & Coriander"], health: "Healthy Brain & Cholesterol Control: Avocado monounsaturated fats support brain focus and lower bad cholesterol.", m1: "Lime Cilantro Toss: Combine black beans, sweet corn, cherry tomatoes, toss in lime juice, lay fresh avocado slices.", m2: "Canned Bean Express: Drain canned black beans and corn, toss together.", m3: "Low-Fat Lime Bowl: Use half avocado to regulate fat intake." },
+                    { id: 611, title: "Thai Spicy Green Papaya Salad (Som Tum)", origin: "International", desc: "Tangy and spicy Thai salad made with shredded green papaya, peanuts, lime, and chilies.", img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500", ing: ["Shredded Green Papaya", "Roasted Peanuts", "Lime Juice", "Birdseye Chilies", "Garlic"], health: "Fat Burning & Metabolism: Papain enzyme in raw papaya burns fat fast and boosts metabolic rate.", m1: "Mortar Pound: Pound garlic, chilies, lime juice in mortar pestle, add shredded green papaya and peanuts.", m2: "Quick Shred Bowl: Shred papaya with peeler, toss with chili lime dressing.", m3: "Peanut-Free Light Toss: Omit peanuts to reduce calorie count." },
+                    { id: 612, title: "Quinoa Cucumber Detox Salad", origin: "International", desc: "Superfood detox salad packed with boiled quinoa, chopped cucumbers, parsley, and lemon olive oil.", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500", ing: ["Boiled Quinoa", "Chopped Cucumbers", "Fresh Parsley", "Extra Virgin Olive Oil", "Lemon Juice"], health: "Complete Superfood Detox: Quinoa contains all 9 essential amino acids, perfect for body detox and fat loss.", m1: "Superfood Cold Mix: Boil quinoa, cool completely, toss with diced cucumbers, heavy parsley, and lemon dressing.", m2: "Microwave Quinoa Express: Microwave quinoa pouch 2 mins, toss with veggies.", m3: "Zero-Oil Lemon Detox: Toss quinoa purely in lemon juice and sea salt." }
+                ]
+            }
+        };
+
+        function renderAllSections() {
+            const area = document.getElementById('contentArea');
+            area.innerHTML = '';
+
+            Object.keys(database).forEach(key => {
+                const cat = database[key];
+                let cardsHtml = '';
+
+                cat.items.forEach(item => {
+                    cardsHtml += `
+                        <div class="card" data-title="${item.title.toLowerCase()}" data-ing="${item.ing.join(' ').toLowerCase()}">
+                            <img src="${item.img}" class="card-img" alt="${item.title}">
+                            <div class="card-content">
+                                <span class="cuisine-badge">${item.origin} Cuisine</span>
+                                <h3 class="card-title">${item.title}</h3>
+                                <p class="card-desc">${item.desc}</p>
+                                ${item.health ? `<div class="health-benefits-box"><strong><i class="fas fa-heartbeat"></i> Health Benefit:</strong> ${item.health}</div>` : ''}
+                                <button class="btn-cook" onclick="openRecipeModal('${key}', ${item.id})">
+                                    <i class="fas fa-list-ol"></i> View 3 Ways To Cook
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                area.innerHTML += `
+                    <div class="category-section" id="sec-${key}">
+                        <div class="section-header">
+                            <h2><i class="fas ${cat.icon}"></i> ${cat.title}</h2>
+                            <span>${cat.items.length} Recipes</span>
+                        </div>
+                        <div class="recipes-grid">
+                            ${cardsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function scrollToSection(key) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if(key === 'all') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const el = document.getElementById(`sec-${key}`);
+                if(el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        function searchSite() {
+            const q = document.getElementById('globalSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                const ing = card.getAttribute('data-ing');
+                if(title.includes(q) || ing.includes(q)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openRecipeModal(catKey, id) {
+            const item = database[catKey].items.find(x => x.id === id);
+            const container = document.getElementById('modalContainer');
+
+            container.innerHTML = `
+                <h2 style="color:var(--primary); margin-bottom:5px;">${item.title}</h2>
+                <span class="cuisine-badge">${item.origin} Specialty</span>
+                <p style="margin:10px 0; color:#555;">${item.desc}</p>
+                
+                ${item.health ? `<div class="health-benefits-box"><strong><i class="fas fa-heartbeat"></i> Health Benefit:</strong> ${item.health}</div>` : ''}
+
+                <div style="background:#f7fafc; padding:15px; border-left:4px solid var(--primary); margin:15px 0; border-radius:4px;">
+                    <h4 style="margin-bottom:5px;"><i class="fas fa-shopping-basket"></i> Key Ingredients:</h4>
+                    <p style="font-size:0.95rem;">${item.ing.join(', ')}</p>
+                </div>
+
+                <h3 style="margin-top:20px;">3 Ways To Cook:</h3>
+                <div class="method-tabs-nav">
+                    <button class="tab-btn active" onclick="switchTab(event, 'tab1')">Method 1: Traditional</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'tab2')">Method 2: Express/Pressure</button>
+                    <button class="tab-btn" onclick="switchTab(event, 'tab3')">Method 3: Healthier/Air-Fryer</button>
+                </div>
+
+                <div id="tab1" class="tab-content active">
+                    <p><strong>Traditional Slow Method:</strong> ${item.m1}</p>
+                </div>
+                <div id="tab2" class="tab-content">
+                    <p><strong>Express / Pressure Cooker Method:</strong> ${item.m2}</p>
+                </div>
+                <div id="tab3" class="tab-content">
+                    <p><strong>Healthier / Air-Fryer / Low-Fat Method:</strong> ${item.m3}</p>
+                </div>
+            `;
+
+            document.getElementById('recipeModal').style.display = 'flex';
+        }
+
+        function switchTab(evt, tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            evt.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('recipeModal').style.display = 'none';
+        }
+
+        // Initialize Page
+        renderAllSections();
+    </script>
 </body>
+</html>
 </html> <!DOCTYPE html>
 <html lang="en">
 <head>
